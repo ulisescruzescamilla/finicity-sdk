@@ -1,0 +1,31 @@
+{
+    "name": "apimatic/finicityapi",
+    "type": "library",
+    "description": "Finicity API",
+    "keywords": ["Finicity API","API","SDK"],
+    "homepage": "https://www.finicity.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Finicity",
+            "email": "support@apimatic.io",
+            "homepage": "https://www.finicity.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "apimatic/unirest-php": "^2.0.0",
+        "apimatic/jsonmapper": "^1.3.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "FinicityAPILib\\": "src/"
+        }
+    }
+}
