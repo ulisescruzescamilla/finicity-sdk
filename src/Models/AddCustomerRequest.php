@@ -33,6 +33,15 @@ class AddCustomerRequest implements JsonSerializable
     public $lastName;
 
     /**
+     * The application Id for the app the partner would like to assign the customer to. This cannot be
+     * changed once set. Only applicable in cases of partners with multiple registered applications. If the
+     * partner only has one app this can be omitted. This value comes from the "applicationId" from the Get
+     * App Registration Status endpoint
+     * @var string|null $applicationId public property
+     */
+    public $applicationId;
+
+    /**
      * All additional properties for this model
      * @var array $additionalProperties public property
      */
@@ -40,16 +49,18 @@ class AddCustomerRequest implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string $username  Initialization value for $this->username
-     * @param string $firstName Initialization value for $this->firstName
-     * @param string $lastName  Initialization value for $this->lastName
+     * @param string $username      Initialization value for $this->username
+     * @param string $firstName     Initialization value for $this->firstName
+     * @param string $lastName      Initialization value for $this->lastName
+     * @param string $applicationId Initialization value for $this->applicationId
      */
     public function __construct()
     {
-        if (3 == func_num_args()) {
-            $this->username  = func_get_arg(0);
-            $this->firstName = func_get_arg(1);
-            $this->lastName  = func_get_arg(2);
+        if (4 == func_num_args()) {
+            $this->username      = func_get_arg(0);
+            $this->firstName     = func_get_arg(1);
+            $this->lastName      = func_get_arg(2);
+            $this->applicationId = func_get_arg(3);
         }
     }
 
@@ -70,9 +81,10 @@ class AddCustomerRequest implements JsonSerializable
     public function jsonSerialize()
     {
         $json = array();
-        $json['username']  = $this->username;
-        $json['firstName'] = $this->firstName;
-        $json['lastName']  = $this->lastName;
+        $json['username']      = $this->username;
+        $json['firstName']     = $this->firstName;
+        $json['lastName']      = $this->lastName;
+        $json['applicationId'] = $this->applicationId;
 
         return array_merge($json, $this->additionalProperties);
     }

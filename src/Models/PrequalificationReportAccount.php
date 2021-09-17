@@ -17,7 +17,7 @@ class PrequalificationReportAccount implements JsonSerializable
     public $id;
 
     /**
-     * The account number from the institution (all digits except the last four are obfuscated)
+     * The account number from the institution (last four digits are shown)
      * @required
      * @var string $number public property
      */

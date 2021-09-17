@@ -67,7 +67,7 @@ class VOAWithIncomeReportRecord implements JsonSerializable
 
     /**
      * @todo Write general description for this property
-     * @var \FinicityAPILib\Models\Error1[]|null $errors public property
+     * @var \FinicityAPILib\Models\ErrorMessage[]|null $errors public property
      */
     public $errors;
 
@@ -79,16 +79,8 @@ class VOAWithIncomeReportRecord implements JsonSerializable
     public $createdDate;
 
     /**
-     * The Report Listener URL to receive notifications (optional, must be URL-encoded).
-     * @required
-     * @var \FinicityAPILib\Models\Callback $callback public property
-     */
-    public $callback;
-
-    /**
      * @todo Write general description for this property
-     * @required
-     * @var \FinicityAPILib\Models\ReportConstraints $constraints public property
+     * @var \FinicityAPILib\Models\ReportConstraints|null $constraints public property
      */
     public $constraints;
 
@@ -148,14 +140,6 @@ class VOAWithIncomeReportRecord implements JsonSerializable
     public $gseEnabled;
 
     /**
-     * A list of institution records, including information about the individual accounts used in this
-     * report
-     * @required
-     * @var \FinicityAPILib\Models\VOAWithIncomeReportInstitution[] $institutions public property
-     */
-    public $institutions;
-
-    /**
      * Sum of Available Balance for all of the accounts included in the report
      * @required
      * @var double $consolidatedAvailableBalance public property
@@ -170,6 +154,21 @@ class VOAWithIncomeReportRecord implements JsonSerializable
     public $portfolioId;
 
     /**
+     * A list of institution records, including information about the individual accounts used in this
+     * report
+     * @required
+     * @var \FinicityAPILib\Models\VOAWithIncomeReportInstitution[] $institutions public property
+     */
+    public $institutions;
+
+    /**
+     * @todo Write general description for this property
+     * @required
+     * @var \FinicityAPILib\Models\AssetSummaryForVOAVOAI $assets public property
+     */
+    public $assets;
+
+    /**
      * All additional properties for this model
      * @var array $additionalProperties public property
      */
@@ -177,30 +176,30 @@ class VOAWithIncomeReportRecord implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string            $id                           Initialization value for $this->id
-     * @param integer           $customerId                   Initialization value for $this->customerId
-     * @param string            $consumerId                   Initialization value for $this->consumerId
-     * @param string            $consumerSsn                  Initialization value for $this->consumerSsn
-     * @param string            $requesterName                Initialization value for $this->requesterName
-     * @param string            $requestId                    Initialization value for $this->requestId
-     * @param string            $type                         Initialization value for $this->type
-     * @param string            $status                       Initialization value for $this->status
-     * @param array             $errors                       Initialization value for $this->errors
-     * @param integer           $createdDate                  Initialization value for $this->createdDate
-     * @param Callback          $callback                     Initialization value for $this->callback
-     * @param ReportConstraints $constraints                  Initialization value for $this->constraints
-     * @param string            $source                       Initialization value for $this->source
-     * @param string            $customerType                 Initialization value for $this->customerType
-     * @param string            $title                        Initialization value for $this->title
-     * @param integer           $startDate                    Initialization value for $this->startDate
-     * @param integer           $endDate                      Initialization value for $this->endDate
-     * @param integer           $days                         Initialization value for $this->days
-     * @param bool              $seasoned                     Initialization value for $this->seasoned
-     * @param bool              $gseEnabled                   Initialization value for $this->gseEnabled
-     * @param array             $institutions                 Initialization value for $this->institutions
-     * @param double            $consolidatedAvailableBalance Initialization value for $this-
-     *                                                          >consolidatedAvailableBalance
-     * @param string            $portfolioId                  Initialization value for $this->portfolioId
+     * @param string                 $id                           Initialization value for $this->id
+     * @param integer                $customerId                   Initialization value for $this->customerId
+     * @param string                 $consumerId                   Initialization value for $this->consumerId
+     * @param string                 $consumerSsn                  Initialization value for $this->consumerSsn
+     * @param string                 $requesterName                Initialization value for $this->requesterName
+     * @param string                 $requestId                    Initialization value for $this->requestId
+     * @param string                 $type                         Initialization value for $this->type
+     * @param string                 $status                       Initialization value for $this->status
+     * @param array                  $errors                       Initialization value for $this->errors
+     * @param integer                $createdDate                  Initialization value for $this->createdDate
+     * @param ReportConstraints      $constraints                  Initialization value for $this->constraints
+     * @param string                 $source                       Initialization value for $this->source
+     * @param string                 $customerType                 Initialization value for $this->customerType
+     * @param string                 $title                        Initialization value for $this->title
+     * @param integer                $startDate                    Initialization value for $this->startDate
+     * @param integer                $endDate                      Initialization value for $this->endDate
+     * @param integer                $days                         Initialization value for $this->days
+     * @param bool                   $seasoned                     Initialization value for $this->seasoned
+     * @param bool                   $gseEnabled                   Initialization value for $this->gseEnabled
+     * @param double                 $consolidatedAvailableBalance Initialization value for $this-
+     *                                                               >consolidatedAvailableBalance
+     * @param string                 $portfolioId                  Initialization value for $this->portfolioId
+     * @param array                  $institutions                 Initialization value for $this->institutions
+     * @param AssetSummaryForVOAVOAI $assets                       Initialization value for $this->assets
      */
     public function __construct()
     {
@@ -215,19 +214,19 @@ class VOAWithIncomeReportRecord implements JsonSerializable
             $this->status                       = func_get_arg(7);
             $this->errors                       = func_get_arg(8);
             $this->createdDate                  = func_get_arg(9);
-            $this->callback                     = func_get_arg(10);
-            $this->constraints                  = func_get_arg(11);
-            $this->source                       = func_get_arg(12);
-            $this->customerType                 = func_get_arg(13);
-            $this->title                        = func_get_arg(14);
-            $this->startDate                    = func_get_arg(15);
-            $this->endDate                      = func_get_arg(16);
-            $this->days                         = func_get_arg(17);
-            $this->seasoned                     = func_get_arg(18);
-            $this->gseEnabled                   = func_get_arg(19);
-            $this->institutions                 = func_get_arg(20);
-            $this->consolidatedAvailableBalance = func_get_arg(21);
-            $this->portfolioId                  = func_get_arg(22);
+            $this->constraints                  = func_get_arg(10);
+            $this->source                       = func_get_arg(11);
+            $this->customerType                 = func_get_arg(12);
+            $this->title                        = func_get_arg(13);
+            $this->startDate                    = func_get_arg(14);
+            $this->endDate                      = func_get_arg(15);
+            $this->days                         = func_get_arg(16);
+            $this->seasoned                     = func_get_arg(17);
+            $this->gseEnabled                   = func_get_arg(18);
+            $this->consolidatedAvailableBalance = func_get_arg(19);
+            $this->portfolioId                  = func_get_arg(20);
+            $this->institutions                 = func_get_arg(21);
+            $this->assets                       = func_get_arg(22);
         }
     }
 
@@ -258,7 +257,6 @@ class VOAWithIncomeReportRecord implements JsonSerializable
         $json['status']                       = $this->status;
         $json['errors']                       = $this->errors;
         $json['createdDate']                  = $this->createdDate;
-        $json['callback']                     = $this->callback;
         $json['constraints']                  = $this->constraints;
         $json['source']                       = $this->source;
         $json['customerType']                 = $this->customerType;
@@ -268,9 +266,10 @@ class VOAWithIncomeReportRecord implements JsonSerializable
         $json['days']                         = $this->days;
         $json['seasoned']                     = $this->seasoned;
         $json['gseEnabled']                   = $this->gseEnabled;
-        $json['institutions']                 = $this->institutions;
         $json['consolidatedAvailableBalance'] = $this->consolidatedAvailableBalance;
         $json['portfolioId']                  = $this->portfolioId;
+        $json['institutions']                 = $this->institutions;
+        $json['assets']                       = $this->assets;
 
         return array_merge($json, $this->additionalProperties);
     }

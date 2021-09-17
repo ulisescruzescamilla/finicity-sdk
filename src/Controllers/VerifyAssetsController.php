@@ -52,19 +52,19 @@ class VerifyAssetsController extends BaseController
      * If no account of type of checking, savings, money market, or investment is found, the service will
      * return HTTP 400 (Bad Request).
      *
-     * @param integer                  $customerId   Finicity ID for the customer
-     * @param string                   $accept       Replace 'json' with 'xml' if preferred
-     * @param string                   $contentType  Replace 'json' with 'xml' if preferred
-     * @param string                   $callbackUrl  (optional) The Report Listener URL to receive notifications
-     *                                               (optional, must be URL-encoded).
-     * @param integer                  $fromDate     (optional) The fromDate parameter is an Epoch Timestamp (in
-     *                                               seconds), such as ?1494449017?. Without this parameter, the report
-     *                                               defaults to 6 months if available. Example: ?fromDate={fromDate}
-     *                                               If included, the epoch timestamp should be 10 digits long and be
-     *                                               within two years of the present day. Extending the epoch timestamp
-     *                                               beyond 10 digits will default back to six months of data.  This
-     *                                               query is optional
-     * @param Models\ReportConstraints $body         (optional) TODO: type description here
+     * @param integer                   $customerId   Finicity ID for the customer
+     * @param string                    $accept       Replace 'json' with 'xml' if preferred
+     * @param string                    $contentType  Replace 'json' with 'xml' if preferred
+     * @param string                    $callbackUrl  (optional) The Report Listener URL to receive notifications
+     *                                                (optional, must be URL-encoded).
+     * @param integer                   $fromDate     (optional) The fromDate parameter is an Epoch Timestamp (in
+     *                                                seconds), such as '1494449017'. Without this parameter, the
+     *                                                report defaults to 61 days if available. Example: ?
+     *                                                fromDate={fromDate}. If included, the epoch timestamp should be
+     *                                                10 digits long and be within six months of the present day.
+     *                                                Extending the epoch timestamp beyond 10 digits will default back
+     *                                                to six months of data. This query is optional
+     * @param Models\RequestConstraints $body         (optional) TODO: type description here
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
@@ -83,7 +83,7 @@ class VerifyAssetsController extends BaseController
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/customers/{customerId}/voa';
+        $_queryBuilder = '/decisioning/v2/customers/{customerId}/voa';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -142,15 +142,30 @@ class VerifyAssetsController extends BaseController
     }
 
     /**
-     * 
-     * Generate a Verification of Assets with Income (VOAH) report for all checking, savings, money market,
-     * and investment accounts for the given customer. This service retrieves up to twenty-four months of
-     * transaction history for each account and uses this information to generate the VOA with Income
-     * report.
+     * Generate a Verification of Assets with Income (VOAI) report for all checking, savings, money market,
+     * and investment accounts for the given customer. This service retrieves up to 24 months of
+     * transaction history for each account and uses this information to generate the VOAI report. The
+     * report includes 1 - 6 months of all debit and credit transactions for asset verification. By default,
+     * the history is set to 61 days, however, you can change the transaction history in this section by
+     * setting the fromDate parameter. The report also includes up to 24 months of income credit
+     * transactions (ordered by account and confidence level) regardless of fromDate for income
+     * verification.
      *
-     * This is a premium service. The billing rate is the variable rate for VOA with Income under the
-     * current subscription plan. The billable event is the successful generation of a VOA with Income
-     * report.
+     * This is a premium service. The billable event is the successful generation of a VOAI report.
+     *
+     * A report consumer must be created for the given customer before calling Generate VOAI Report (see
+     * Report Consumers).
+     *
+     * After making this call, the client app may wait for a notification to be sent to the Report Listener
+     * Service, or it may enter a loop, which should wait 20 seconds and then call the service Get Report
+     * to see if the report is finished. While the report is being generated, Get Report will return a
+     * minimal report with status inProgress. The loop should repeat every 20 seconds until Get Report
+     * returns a different status.
+     *
+     * If using the listener service, the following format must be followed and the webhook must respond to
+     * the Finicity API with a 200 series code:
+     *
+     * https://api.finicity.com/decisioning/v2/customers/[customerId]/voaHistory?callbackUrl=[webhookUrl]
      *
      * HTTP status of 202 (Accepted) means the report is being generated. When the report is finished, a
      * notification will be sent to the specified report callback URL, if specified.
@@ -158,23 +173,28 @@ class VerifyAssetsController extends BaseController
      * If no account of type of checking, savings, money market, or investment is found, the service will
      * return HTTP 400 (Bad Request).
      *
-     * @param integer                  $customerId   Finicity Id of the customer
-     * @param string                   $accept       Replace 'json' with 'xml' if preferred
-     * @param string                   $contentType  Replace 'json' with 'xml' if preferred
-     * @param string                   $callbackUrl  (optional) The Report Listener URL to receive notifications
-     *                                               (optional, must be URL-encoded).
-     * @param integer                  $fromDate     (optional) The fromDate parameter is an Epoch Timestamp (in
-     *                                               seconds), such as ?1494449017?. Without this parameter, the report
-     *                                               defaults to 2 years if available. Example: ?fromDate={fromDate} If
-     *                                               included, the epoch timestamp should be 10 digits long and be
-     *                                               within two years of the present day. Extending the epoch timestamp
-     *                                               beyond 10 digits will default back to 2 years of data.  This query
-     *                                               is optional
-     * @param Models\ReportConstraints $body         (optional) TODO: type description here
+     * @param integer                   $customerId   Finicity Id of the customer
+     * @param string                    $accept       Replace 'json' with 'xml' if preferred
+     * @param string                    $contentType  Replace 'json' with 'xml' if preferred
+     * @param string                    $callbackUrl  (optional) The Report Listener URL to receive notifications
+     *                                                (optional, must be URL-encoded).
+     * @param integer                   $fromDate     (optional) The fromDate parameter is an Epoch Timestamp (in
+     *                                                seconds), such as ?1494449017?. Without this parameter, the
+     *                                                report defaults to 61 days if available. This will limit the
+     *                                                amount of credit and debit transactions included in the report up
+     *                                                to the date specified, but will not limit the amount of income
+     *                                                stream transactions. The income stream transactions are all
+     *                                                included, up to 24 months, to help the lender and GSE's have the
+     *                                                full history to validate income. Example: ?fromDate={fromDate}If
+     *                                                included, the epoch timestamp should be 10 digits long and be
+     *                                                within two years of the present day. Extending the epoch
+     *                                                timestamp beyond 10 digits will default back to 2 years of data.
+     *                                                This query is optional.
+     * @param Models\RequestConstraints $body         (optional) TODO: type description here
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
-    public function generateVOAWithIncomeReportV2(
+    public function generateVOAWithIncomeReport(
         $customerId,
         $accept,
         $contentType,
@@ -263,7 +283,7 @@ class VerifyAssetsController extends BaseController
      * If using the listener service, the following format must be followed and the webhook must respond to
      * the Finicity API with a 200 series code:
      *
-     * https://api.finicity.com/decisioning/v1/customers/[customerId]/preQualVoa?callbackUrl=[webhookUrl]
+     * https://api.finicity.com/decisioning/v2/customers/[customerId]/preQualVoa?callbackUrl=[webhookUrl]
      *
      * HTTP status of 202 (Accepted) means the report is being generated. When the report is finished, a
      * notification will be sent to the specified report callback URL, if specified.
@@ -271,12 +291,12 @@ class VerifyAssetsController extends BaseController
      * If no account type of checking, savings, money market, or investment is found, the service will
      * return HTTP 400 (Bad Request).
      *
-     * @param integer                  $customerId   Finicity's ID of the customer
-     * @param string                   $accept       Replace 'json' with 'xml' if preferred
-     * @param string                   $contentType  Replace 'json' with 'xml' if preferred
-     * @param string                   $callbackUrl  (optional) The Report Listener URL to receive notifications
-     *                                               (optional, must be URL-encoded).
-     * @param Models\ReportConstraints $body         (optional) TODO: type description here
+     * @param integer                   $customerId   Finicity's ID of the customer
+     * @param string                    $accept       Replace 'json' with 'xml' if preferred
+     * @param string                    $contentType  Replace 'json' with 'xml' if preferred
+     * @param string                    $callbackUrl  (optional) The Report Listener URL to receive notifications
+     *                                                (optional, must be URL-encoded).
+     * @param Models\RequestConstraints $body         (optional) TODO: type description here
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
@@ -367,7 +387,7 @@ class VerifyAssetsController extends BaseController
      * If using the listener service, the following format must be followed and the webhook must respond to
      * the Finicity API with a 200 series code:
      *
-     * https://api.finicity.com/decisioning/v1/customers/[customerId]/assetSummary?
+     * https://api.finicity.com/decisioning/v2/customers/[customerId]/assetSummary?
      * callbackUrl=[webhookUrl]
      *
      * HTTP status of 202 (Accepted) means the report is being generated. When the report is finished, a
@@ -376,12 +396,12 @@ class VerifyAssetsController extends BaseController
      * If no account type of checking, savings, money market, or investment is found, the service will
      * return HTTP 400 (Bad Request).
      *
-     * @param integer                  $customerId   Finicity's ID of the customer
-     * @param string                   $accept       Replace 'json' with 'xml' if preferred
-     * @param string                   $contentType  Replace 'json' with 'xml' if preferred
-     * @param string                   $callbackUrl  (optional) The Report Listener URL to receive notifications
-     *                                               (optional, must be URL-encoded).
-     * @param Models\ReportConstraints $body         (optional) TODO: type description here
+     * @param integer                   $customerId   Finicity's ID of the customer
+     * @param string                    $accept       Replace 'json' with 'xml' if preferred
+     * @param string                    $contentType  Replace 'json' with 'xml' if preferred
+     * @param string                    $callbackUrl  (optional) The Report Listener URL to receive notifications
+     *                                                (optional, must be URL-encoded).
+     * @param Models\RequestConstraints $body         (optional) TODO: type description here
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */

@@ -18,23 +18,21 @@ class VOIEWithInterviewData implements JsonSerializable
     public $txverify_Interview;
 
     /**
-     * Field to indicate whether to extract the earnings on all pay statements.
-     * @required
-     * @var bool $extractEarnings public property
+     * Field to indicate whether to extract the earnings on all pay statements. This is an optional field.
+     * @var bool|null $extractEarnings public property
      */
     public $extractEarnings;
 
     /**
-     * Field to indicate whether to extract the deductions on all pay statements.
-     * @required
-     * @var bool $extractDeductions public property
+     * Field to indicate whether to extract the deductions on all pay statements. This is an optional field.
+     * @var bool|null $extractDeductions public property
      */
     public $extractDeductions;
 
     /**
-     * Field to indicate whether to extract the direct deposits on all pay statements.
-     * @required
-     * @var bool $extractDirectDeposit public property
+     * Field to indicate whether to extract the direct deposits on all pay statements. This is an optional
+     * field.
+     * @var bool|null $extractDirectDeposit public property
      */
     public $extractDirectDeposit;
 
@@ -53,11 +51,19 @@ class VOIEWithInterviewData implements JsonSerializable
      */
     public function __construct()
     {
-        if (4 == func_num_args()) {
-            $this->txverify_Interview   = func_get_arg(0);
-            $this->extractEarnings      = func_get_arg(1);
-            $this->extractDeductions    = func_get_arg(2);
-            $this->extractDirectDeposit = func_get_arg(3);
+        switch (func_num_args()) {
+            case 4:
+                $this->txverify_Interview   = func_get_arg(0);
+                $this->extractEarnings      = func_get_arg(1);
+                $this->extractDeductions    = func_get_arg(2);
+                $this->extractDirectDeposit = func_get_arg(3);
+                break;
+
+            default:
+                $this->extractEarnings = true;
+                $this->extractDeductions = false;
+                $this->extractDirectDeposit = true;
+                break;
         }
     }
 

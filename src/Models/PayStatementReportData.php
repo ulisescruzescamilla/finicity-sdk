@@ -18,22 +18,19 @@ class PayStatementReportData implements JsonSerializable
 
     /**
      * Field to indicate whether to extract the earnings on all pay statements.
-     * @required
-     * @var bool $extractEarnings public property
+     * @var bool|null $extractEarnings public property
      */
     public $extractEarnings;
 
     /**
      * Field to indicate whether to extract the deductions on all pay statements.
-     * @required
-     * @var bool $extractDeductions public property
+     * @var bool|null $extractDeductions public property
      */
     public $extractDeductions;
 
     /**
      * Field to indicate whether to extract the direct deposits on all pay statements.
-     * @required
-     * @var bool $extractDirectDeposit public property
+     * @var bool|null $extractDirectDeposit public property
      */
     public $extractDirectDeposit;
 
@@ -52,11 +49,19 @@ class PayStatementReportData implements JsonSerializable
      */
     public function __construct()
     {
-        if (4 == func_num_args()) {
-            $this->assetIds             = func_get_arg(0);
-            $this->extractEarnings      = func_get_arg(1);
-            $this->extractDeductions    = func_get_arg(2);
-            $this->extractDirectDeposit = func_get_arg(3);
+        switch (func_num_args()) {
+            case 4:
+                $this->assetIds             = func_get_arg(0);
+                $this->extractEarnings      = func_get_arg(1);
+                $this->extractDeductions    = func_get_arg(2);
+                $this->extractDirectDeposit = func_get_arg(3);
+                break;
+
+            default:
+                $this->extractEarnings = true;
+                $this->extractDeductions = false;
+                $this->extractDirectDeposit = true;
+                break;
         }
     }
 

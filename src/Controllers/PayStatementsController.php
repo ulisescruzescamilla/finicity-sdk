@@ -44,19 +44,8 @@ class PayStatementsController extends BaseController
      * @param string                          $finicityAppKey     Finicity-App-Key from Developer Portal
      * @param string                          $finicityAppToken   Token returned from Partner Authentication
      * @param integer                         $customerId         Finicity's ID of the customer
-     * @param Models\StorePayStatementRequest $body               The label to be associated with the pay statement.
-     *                                                            These are recommended labels:  - lastPayPeriod – The
-     *                                                            most recent (last) pay statement. This label will
-     *                                                            allow the paystub to go through primary data
-     *                                                            extraction.  - lastPayPeriodMinusOne – The second
-     *                                                            most recent pay statement  - lastPayPeriodMinusTwo –
-     *                                                            The third most recent pay statement  -
-     *                                                            previousYearLastPayPeriod – Last pay statement of the
-     *                                                            previous calendar year  - previousYear2LastPayPeriod
-     *                                                            – Last pay statement of the calendar year 2 years
-     *                                                            prior  - earliestPayPeriod – The earliest pay
-     *                                                            statement  statement - The base 64 encoded value for
-     *                                                            the pay statement.
+     * @param Models\StorePayStatementRequest $body               The base 64 encoded value of the pay statement and
+     *                                                            pay statement label.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */

@@ -6,7 +6,7 @@ use JsonSerializable;
 
 /**
  *The response to calls to refresh accounts or get customer accounts is a list of account in the
- * "accounts" array. A customer account represents a bank account such as a checking or savings that
+ * `accounts` array. A customer account represents a bank account such as a checking or savings that
  * the customer has added via the Connect interface
  */
 class CustomerAccounts implements JsonSerializable

@@ -5,7 +5,7 @@ namespace FinicityAPILib\Models;
 use JsonSerializable;
 
 /**
- * @todo Write general description for this model
+ ***Note**: See the main API page for important details on student loans (account type 402).
  */
 class GetTransactionsResponse implements JsonSerializable
 {

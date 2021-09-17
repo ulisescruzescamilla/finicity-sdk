@@ -24,13 +24,6 @@ class CreateConsumerRequest implements JsonSerializable
     public $lastName;
 
     /**
-     * Finicity's ID of the customer
-     * @required
-     * @var integer $customerId public property
-     */
-    public $customerId;
-
-    /**
      * The consumer’s street address
      * @required
      * @var string $address public property
@@ -81,31 +74,15 @@ class CreateConsumerRequest implements JsonSerializable
 
     /**
      * The consumer’s email address
-     * @required
-     * @var string $email public property
+     * @var string|null $email public property
      */
     public $email;
 
     /**
-     * Consumer created date
-     * @required
-     * @var integer $createdDate public property
-     */
-    public $createdDate;
-
-    /**
      * The consumer suffix
-     * @required
-     * @var string $suffix public property
+     * @var string|null $suffix public property
      */
     public $suffix;
-
-    /**
-     * The consumer’s email address
-     * @required
-     * @var string $emailAddress public property
-     */
-    public $emailAddress;
 
     /**
      * All additional properties for this model
@@ -115,38 +92,32 @@ class CreateConsumerRequest implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string   $firstName    Initialization value for $this->firstName
-     * @param string   $lastName     Initialization value for $this->lastName
-     * @param integer  $customerId   Initialization value for $this->customerId
-     * @param string   $address      Initialization value for $this->address
-     * @param string   $city         Initialization value for $this->city
-     * @param string   $state        Initialization value for $this->state
-     * @param string   $zip          Initialization value for $this->zip
-     * @param string   $phone        Initialization value for $this->phone
-     * @param string   $ssn          Initialization value for $this->ssn
-     * @param Birthday $birthday     Initialization value for $this->birthday
-     * @param string   $email        Initialization value for $this->email
-     * @param integer  $createdDate  Initialization value for $this->createdDate
-     * @param string   $suffix       Initialization value for $this->suffix
-     * @param string   $emailAddress Initialization value for $this->emailAddress
+     * @param string   $firstName Initialization value for $this->firstName
+     * @param string   $lastName  Initialization value for $this->lastName
+     * @param string   $address   Initialization value for $this->address
+     * @param string   $city      Initialization value for $this->city
+     * @param string   $state     Initialization value for $this->state
+     * @param string   $zip       Initialization value for $this->zip
+     * @param string   $phone     Initialization value for $this->phone
+     * @param string   $ssn       Initialization value for $this->ssn
+     * @param Birthday $birthday  Initialization value for $this->birthday
+     * @param string   $email     Initialization value for $this->email
+     * @param string   $suffix    Initialization value for $this->suffix
      */
     public function __construct()
     {
-        if (14 == func_num_args()) {
-            $this->firstName    = func_get_arg(0);
-            $this->lastName     = func_get_arg(1);
-            $this->customerId   = func_get_arg(2);
-            $this->address      = func_get_arg(3);
-            $this->city         = func_get_arg(4);
-            $this->state        = func_get_arg(5);
-            $this->zip          = func_get_arg(6);
-            $this->phone        = func_get_arg(7);
-            $this->ssn          = func_get_arg(8);
-            $this->birthday     = func_get_arg(9);
-            $this->email        = func_get_arg(10);
-            $this->createdDate  = func_get_arg(11);
-            $this->suffix       = func_get_arg(12);
-            $this->emailAddress = func_get_arg(13);
+        if (11 == func_num_args()) {
+            $this->firstName = func_get_arg(0);
+            $this->lastName  = func_get_arg(1);
+            $this->address   = func_get_arg(2);
+            $this->city      = func_get_arg(3);
+            $this->state     = func_get_arg(4);
+            $this->zip       = func_get_arg(5);
+            $this->phone     = func_get_arg(6);
+            $this->ssn       = func_get_arg(7);
+            $this->birthday  = func_get_arg(8);
+            $this->email     = func_get_arg(9);
+            $this->suffix    = func_get_arg(10);
         }
     }
 
@@ -167,20 +138,17 @@ class CreateConsumerRequest implements JsonSerializable
     public function jsonSerialize()
     {
         $json = array();
-        $json['firstName']    = $this->firstName;
-        $json['lastName']     = $this->lastName;
-        $json['customerId']   = $this->customerId;
-        $json['address']      = $this->address;
-        $json['city']         = $this->city;
-        $json['state']        = $this->state;
-        $json['zip']          = $this->zip;
-        $json['phone']        = $this->phone;
-        $json['ssn']          = $this->ssn;
-        $json['birthday']     = $this->birthday;
-        $json['email']        = $this->email;
-        $json['createdDate']  = $this->createdDate;
-        $json['suffix']       = $this->suffix;
-        $json['emailAddress'] = $this->emailAddress;
+        $json['firstName'] = $this->firstName;
+        $json['lastName']  = $this->lastName;
+        $json['address']   = $this->address;
+        $json['city']      = $this->city;
+        $json['state']     = $this->state;
+        $json['zip']       = $this->zip;
+        $json['phone']     = $this->phone;
+        $json['ssn']       = $this->ssn;
+        $json['birthday']  = $this->birthday;
+        $json['email']     = $this->email;
+        $json['suffix']    = $this->suffix;
 
         return array_merge($json, $this->additionalProperties);
     }

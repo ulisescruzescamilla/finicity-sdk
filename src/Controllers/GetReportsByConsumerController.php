@@ -121,30 +121,30 @@ class GetReportsByConsumerController extends BaseController
      *
      * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
      * @param string $reportId     Finicity’s ID of the report (UUID with max length 32 characters)
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
      * @param string $accept       Replace 'json' with 'xml' if preferred
      * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
-     * @param string $purpose      (optional) 2-digit code from Permissible Purpose Codes, specifying the reason for
-     *                             retrieving this report.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
     public function getReportByConsumer(
         $consumerId,
         $reportId,
+        $purpose,
         $accept,
         $contentType,
-        $onBehalfOf = null,
-        $purpose = null
+        $onBehalfOf = null
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $reportId, $accept, $contentType)) {
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/consumers/{consumerId}/reports/{reportId}';
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -154,8 +154,8 @@ class GetReportsByConsumerController extends BaseController
 
         //process optional query parameters
         APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'onBehalfOf'   => $onBehalfOf,
             'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
         ));
 
         //validate and preprocess url
@@ -211,30 +211,30 @@ class GetReportsByConsumerController extends BaseController
      *
      * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
      * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
      * @param string $accept       Replace 'json' with 'xml' if preferred
      * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
-     * @param string $purpose      (optional) 2-digit code from Permissible Purpose Codes, specifying the reason for
-     *                             retrieving this report.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
     public function getVOAReportByConsumer(
         $consumerId,
         $reportId,
+        $purpose,
         $accept,
         $contentType,
-        $onBehalfOf = null,
-        $purpose = null
+        $onBehalfOf = null
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $reportId, $accept, $contentType)) {
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/consumers/{consumerId}/reports/{reportId}';
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -244,8 +244,8 @@ class GetReportsByConsumerController extends BaseController
 
         //process optional query parameters
         APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'onBehalfOf'   => $onBehalfOf,
             'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
         ));
 
         //validate and preprocess url
@@ -301,30 +301,30 @@ class GetReportsByConsumerController extends BaseController
      *
      * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
      * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
      * @param string $accept       Replace 'json' with 'xml' if preferred
      * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
-     * @param string $purpose      (optional) 2-digit code from Permissible Purpose Codes, specifying the reason for
-     *                             retrieving this report.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
     public function getVOIReportByConsumer(
         $consumerId,
         $reportId,
+        $purpose,
         $accept,
         $contentType,
-        $onBehalfOf = null,
-        $purpose = null
+        $onBehalfOf = null
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $reportId, $accept, $contentType)) {
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/consumers/{consumerId}/reports/{reportId}';
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -334,8 +334,8 @@ class GetReportsByConsumerController extends BaseController
 
         //process optional query parameters
         APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'onBehalfOf'   => $onBehalfOf,
             'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
         ));
 
         //validate and preprocess url
@@ -391,30 +391,30 @@ class GetReportsByConsumerController extends BaseController
      *
      * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
      * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
      * @param string $accept       Replace 'json' with 'xml' if preferred
      * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
-     * @param string $purpose      (optional) 2-digit code from Permissible Purpose Codes, specifying the reason for
-     *                             retrieving this report.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
     public function getVOAWithIncomeReportByConsumer(
         $consumerId,
         $reportId,
+        $purpose,
         $accept,
         $contentType,
-        $onBehalfOf = null,
-        $purpose = null
+        $onBehalfOf = null
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $reportId, $accept, $contentType)) {
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/consumers/{consumerId}/reports/{reportId}';
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -424,8 +424,8 @@ class GetReportsByConsumerController extends BaseController
 
         //process optional query parameters
         APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'onBehalfOf'   => $onBehalfOf,
             'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
         ));
 
         //validate and preprocess url
@@ -481,30 +481,30 @@ class GetReportsByConsumerController extends BaseController
      *
      * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
      * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
      * @param string $accept       Replace 'json' with 'xml' if preferred
      * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
-     * @param string $purpose      (optional) 2-digit code from Permissible Purpose Codes, specifying the reason for
-     *                             retrieving this report.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
     public function getPrequalificationReportByConsumer(
         $consumerId,
         $reportId,
+        $purpose,
         $accept,
         $contentType,
-        $onBehalfOf = null,
-        $purpose = null
+        $onBehalfOf = null
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $reportId, $accept, $contentType)) {
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/consumers/{consumerId}/reports/{reportId}';
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -514,8 +514,8 @@ class GetReportsByConsumerController extends BaseController
 
         //process optional query parameters
         APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'onBehalfOf'   => $onBehalfOf,
             'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
         ));
 
         //validate and preprocess url
@@ -571,30 +571,30 @@ class GetReportsByConsumerController extends BaseController
      *
      * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
      * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
      * @param string $accept       Replace 'json' with 'xml' if preferred
      * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
-     * @param string $purpose      (optional) 2-digit code from Permissible Purpose Codes, specifying the reason for
-     *                             retrieving this report.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
     public function getPayStatementByConsumer(
         $consumerId,
         $reportId,
+        $purpose,
         $accept,
         $contentType,
-        $onBehalfOf = null,
-        $purpose = null
+        $onBehalfOf = null
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $reportId, $accept, $contentType)) {
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/consumers/{consumerId}/reports/{reportId}';
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -604,8 +604,8 @@ class GetReportsByConsumerController extends BaseController
 
         //process optional query parameters
         APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'onBehalfOf'   => $onBehalfOf,
             'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
         ));
 
         //validate and preprocess url
@@ -661,30 +661,30 @@ class GetReportsByConsumerController extends BaseController
      *
      * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
      * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
      * @param string $accept       Replace 'json' with 'xml' if preferred
      * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
-     * @param string $purpose      (optional) 2-digit code from Permissible Purpose Codes, specifying the reason for
-     *                             retrieving this report.
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
-    public function getVOIE_txverify_ReportByConsumer(
+    public function getVOIEPaystubWith_txverify_ReportByConsumer(
         $consumerId,
         $reportId,
+        $purpose,
         $accept,
         $contentType,
-        $onBehalfOf = null,
-        $purpose = null
+        $onBehalfOf = null
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $reportId, $accept, $contentType)) {
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
-        $_queryBuilder = '/decisioning/v1/consumers/{consumerId}/reports/{reportId}';
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
@@ -694,8 +694,8 @@ class GetReportsByConsumerController extends BaseController
 
         //process optional query parameters
         APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'onBehalfOf'   => $onBehalfOf,
             'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
         ));
 
         //validate and preprocess url
@@ -737,6 +737,637 @@ class GetReportsByConsumerController extends BaseController
 
         $mapper = $this->getJsonMapper();
 
-        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\VOIETxverifyReportRecord');
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\VOIEPaystubWithTxverifyReportRecord');
+    }
+
+    /**
+     * Get a report that has been generated by calling one of the Generate Report services.
+     *
+     * The report's status field will contain inProgress, failure, or success. If the status shows
+     * inProgress, the client app should wait 20 seconds and then call again to see if the report is
+     * finished.
+     *
+     * See Permissible Purpose Codes for a list of permissible purposes for retrieving a report.
+     *
+     * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
+     * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
+     * @param string $accept       JSON or  XML
+     * @param string $contentType  JSON or  XML
+     * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getTransactionsReportByConsumer(
+        $consumerId,
+        $reportId,
+        $purpose,
+        $accept,
+        $contentType,
+        $onBehalfOf = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'consumerId'   => $consumerId,
+            'reportId'     => $reportId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept,
+            'Content-Type'    => $contentType
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //Error handling using HTTP status codes
+        if ($response->code == 400) {
+            throw new Exceptions\Error1ErrorException('Bad Request', $_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\TransactionsReportRecord');
+    }
+
+    /**
+     * Get a report that has been generated by calling one of the Generate Report services.
+     *
+     * The report's status field will contain inProgress, failure, or success. If the status shows
+     * inProgress, the client app should wait 20 seconds and then call again to see if the report is
+     * finished.
+     *
+     * See Permissible Purpose Codes for a list of permissible purposes for retrieving a report.
+     *
+     * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
+     * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
+     * @param string $accept       Replace 'json' with 'xml' if preferred
+     * @param string $contentType  Replace 'json' with 'xml' if preferred
+     * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getStatementReportByConsumer(
+        $consumerId,
+        $reportId,
+        $purpose,
+        $accept,
+        $contentType,
+        $onBehalfOf = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'consumerId'   => $consumerId,
+            'reportId'     => $reportId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept,
+            'Content-Type'    => $contentType
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //Error handling using HTTP status codes
+        if ($response->code == 400) {
+            throw new Exceptions\Error1ErrorException('Bad Request', $_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\StatementReportRecord');
+    }
+
+    /**
+     * Get a report that has been generated by calling one of the Generate Report services.
+     *
+     * The report's status field will contain inProgress, failure, or success. If the status shows
+     * inProgress, the client app should wait 20 seconds and then call again to see if the report is
+     * finished.
+     *
+     * See Permissible Purpose Codes for a list of permissible purposes for retrieving a report.
+     *
+     * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
+     * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
+     * @param string $accept       Replace 'json' with 'xml' if preferred
+     * @param string $contentType  Replace 'json' with 'xml' if preferred
+     * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getVOIEPayrollReportByConsumer(
+        $consumerId,
+        $reportId,
+        $purpose,
+        $accept,
+        $contentType,
+        $onBehalfOf = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = 
+            '/decisioning/v3/consumers/{consumerId}/reports/{reportId}?purpose=26';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'consumerId'   => $consumerId,
+            'reportId'     => $reportId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept,
+            'Content-Type'    => $contentType
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //Error handling using HTTP status codes
+        if ($response->code == 400) {
+            throw new Exceptions\Error1ErrorException('Bad Request', $_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\VOIEPayrollReportRecord');
+    }
+
+    /**
+     * Get a report that has been generated by calling one of the Generate Report services.
+     *
+     * The report's status field will contain inProgress, failure, or success. If the status shows
+     * inProgress, the client app should wait 20 seconds and then call again to see if the report is
+     * finished.
+     *
+     * @param string $accept       `application`/`json`
+     * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
+     * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
+     * @param string $contentType  Replace 'json' with 'xml' if preferred
+     * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getCashFlowReportPersonal(
+        $accept,
+        $consumerId,
+        $reportId,
+        $purpose,
+        $contentType,
+        $onBehalfOf = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($accept, $consumerId, $reportId, $purpose, $contentType)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'consumerId'   => $consumerId,
+            'reportId'     => $reportId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept,
+            'Content-Type'    => $contentType
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //Error handling using HTTP status codes
+        if ($response->code == 400) {
+            throw new Exceptions\Error1ErrorException('Bad Request', $_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CashFlowRecordPersonal');
+    }
+
+    /**
+     * Get a report that has been generated by calling one of the Generate Report services.
+     *
+     * The report's status field will contain inProgress, failure, or success. If the status shows
+     * inProgress, the client app should wait 20 seconds and then call again to see if the report is
+     * finished.
+     *
+     * See Permissible Purpose Codes for a list of permissible purposes for retrieving a report.
+     *
+     * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
+     * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
+     * @param string $accept       Replace 'json' with 'xml' if preferred
+     * @param string $contentType  Replace 'json' with 'xml' if preferred
+     * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getVOIEPaystubReportByConsumer(
+        $consumerId,
+        $reportId,
+        $purpose,
+        $accept,
+        $contentType,
+        $onBehalfOf = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = '/decisioning/v3/consumers/{consumerId}/reports/{reportId}';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'consumerId'   => $consumerId,
+            'reportId'     => $reportId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept,
+            'Content-Type'    => $contentType
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //Error handling using HTTP status codes
+        if ($response->code == 400) {
+            throw new Exceptions\Error1ErrorException('Bad Request', $_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\VOIEPaystubReportRecord');
+    }
+
+    /**
+     * Get a report that has been generated by calling one of the Generate Report services.
+     *
+     * The report's status field will contain inProgress, failure, or success. If the status shows
+     * inProgress, the client app should wait 20 seconds and then call again to see if the report is
+     * finished.
+     *
+     * See Permissible Purpose Codes for a list of permissible purposes for retrieving a report.
+     *
+     * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
+     * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
+     * @param string $accept       Replace 'json' with 'xml' if preferred
+     * @param string $contentType  Replace 'json' with 'xml' if preferred
+     * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getVOEPayrollReportByConsumer(
+        $consumerId,
+        $reportId,
+        $purpose,
+        $accept,
+        $contentType,
+        $onBehalfOf = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = 
+            '/decisioning/v3/consumers/{consumerId}/reports/{reportId}?purpose=26';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'consumerId'   => $consumerId,
+            'reportId'     => $reportId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept,
+            'Content-Type'    => $contentType
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //Error handling using HTTP status codes
+        if ($response->code == 400) {
+            throw new Exceptions\Error1ErrorException('Bad Request', $_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\VOEPayrollReportRecord');
+    }
+
+    /**
+     * Get a report that has been generated by calling one of the Generate Report services.
+     *
+     * The report's status field will contain inProgress, failure, or success. If the status shows
+     * inProgress, the client app should wait 20 seconds and then call again to see if the report is
+     * finished.
+     *
+     * See Permissible Purpose Codes for a list of permissible purposes for retrieving a report.
+     *
+     * @param string $consumerId   Finicity’s ID of the consumer (UUID with max length 32 characters)
+     * @param string $reportId     Finicity’s ID of the report
+     * @param string $purpose      2-digit code from Permissible Purpose Codes, specifying the reason for retrieving
+     *                             this report.
+     * @param string $accept       Replace 'json' with 'xml' if preferred
+     * @param string $contentType  Replace 'json' with 'xml' if preferred
+     * @param string $onBehalfOf   (optional) The name of the entity you are retrieving the report on behalf of.
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getVOETransactionsReportByConsumer(
+        $consumerId,
+        $reportId,
+        $purpose,
+        $accept,
+        $contentType,
+        $onBehalfOf = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($consumerId, $reportId, $purpose, $accept, $contentType)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = 
+            '/decisioning/v3/consumers/{consumerId}/reports/{reportId}?purpose=26';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'consumerId'   => $consumerId,
+            'reportId'     => $reportId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'purpose'      => $purpose,
+            'onBehalfOf'   => $onBehalfOf,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept,
+            'Content-Type'    => $contentType
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //Error handling using HTTP status codes
+        if ($response->code == 400) {
+            throw new Exceptions\Error1ErrorException('Bad Request', $_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\VOETransactionsReportRecord');
     }
 }

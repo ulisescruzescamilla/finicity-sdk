@@ -45,8 +45,7 @@ class VOAWithIncomeReportTransaction implements JsonSerializable
      * The memo field of the transaction, as provided by the institution. The institution must provide
      * either a description, a memo, or both. It is recommended to concatenate the two fields into a single
      * value
-     * @required
-     * @var string $memo public property
+     * @var string|null $memo public property
      */
     public $memo;
 
@@ -76,14 +75,6 @@ class VOAWithIncomeReportTransaction implements JsonSerializable
      * @var string|null $type public property
      */
     public $type;
-
-    /**
-     * Combines the description and memo data together, removes any duplicated information from description
-     * to memo, and removes any numbers or special characters
-     * @required
-     * @var string $bestRepresentation public property
-     */
-    public $bestRepresentation;
 
     /**
      * The type of investment security (VOA only)
@@ -120,14 +111,13 @@ class VOAWithIncomeReportTransaction implements JsonSerializable
      * @param string  $institutionTransactionId Initialization value for $this->institutionTransactionId
      * @param string  $category                 Initialization value for $this->category
      * @param string  $type                     Initialization value for $this->type
-     * @param string  $bestRepresentation       Initialization value for $this->bestRepresentation
      * @param string  $securityType             Initialization value for $this->securityType
      * @param string  $symbol                   Initialization value for $this->symbol
      * @param double  $commission               Initialization value for $this->commission
      */
     public function __construct()
     {
-        if (13 == func_num_args()) {
+        if (12 == func_num_args()) {
             $this->id                       = func_get_arg(0);
             $this->amount                   = func_get_arg(1);
             $this->postedDate               = func_get_arg(2);
@@ -137,10 +127,9 @@ class VOAWithIncomeReportTransaction implements JsonSerializable
             $this->institutionTransactionId = func_get_arg(6);
             $this->category                 = func_get_arg(7);
             $this->type                     = func_get_arg(8);
-            $this->bestRepresentation       = func_get_arg(9);
-            $this->securityType             = func_get_arg(10);
-            $this->symbol                   = func_get_arg(11);
-            $this->commission               = func_get_arg(12);
+            $this->securityType             = func_get_arg(9);
+            $this->symbol                   = func_get_arg(10);
+            $this->commission               = func_get_arg(11);
         }
     }
 
@@ -170,7 +159,6 @@ class VOAWithIncomeReportTransaction implements JsonSerializable
         $json['institutionTransactionId'] = $this->institutionTransactionId;
         $json['category']                 = $this->category;
         $json['type']                     = $this->type;
-        $json['bestRepresentation']       = $this->bestRepresentation;
         $json['securityType']             = $this->securityType;
         $json['symbol']                   = $this->symbol;
         $json['commission']               = $this->commission;

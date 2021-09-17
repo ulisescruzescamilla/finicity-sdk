@@ -82,8 +82,7 @@ class VOIETxverifyPayStatement implements JsonSerializable
 
     /**
      * The payroll provider extracted from the pay statement.
-     * @required
-     * @var string $payrollProvider public property
+     * @var string|null $payrollProvider public property
      */
     public $payrollProvider;
 
@@ -116,13 +115,6 @@ class VOIETxverifyPayStatement implements JsonSerializable
     public $payStat;
 
     /**
-     * Information pertaining to the deductions on the pay statement
-     * @required
-     * @var \FinicityAPILib\Models\Deduction[] $deductions public property
-     */
-    public $deductions;
-
-    /**
      * Information pertaining to the direct deposits on the pay statement
      * @required
      * @var \FinicityAPILib\Models\DirectDeposit[] $directDeposits public property
@@ -130,11 +122,32 @@ class VOIETxverifyPayStatement implements JsonSerializable
     public $directDeposits;
 
     /**
-     * @todo Write general description for this property
+     * The Finicity estimated monthly income based on the pay cadence and the earnings categories from the
+     * paystub, as available.
      * @required
-     * @var \FinicityAPILib\Models\VOIETxverifyReportInstitution[] $institutions public property
+     * @var \FinicityAPILib\Models\PaystubMonthlyIncomeRecord $monthlyIncome public property
+     */
+    public $monthlyIncome;
+
+    /**
+     * Details of the financial institution accounts and income streams with matching transactions to the
+     * pay statement.
+     * @required
+     * @var \FinicityAPILib\Models\VOIETxverifyReportPayStatementsInstitution[] $institutions public property
      */
     public $institutions;
+
+    /**
+     * Error code for the asset
+     * @var integer|null $errorCode public property
+     */
+    public $errorCode;
+
+    /**
+     * Error message for the asset
+     * @var string|null $errorMessage public property
+     */
+    public $errorMessage;
 
     /**
      * All additional properties for this model
@@ -144,28 +157,30 @@ class VOIETxverifyPayStatement implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string   $payPeriod       Initialization value for $this->payPeriod
-     * @param bool     $billable        Initialization value for $this->billable
-     * @param string   $assetId         Initialization value for $this->assetId
-     * @param integer  $payDate         Initialization value for $this->payDate
-     * @param integer  $startDate       Initialization value for $this->startDate
-     * @param integer  $endDate         Initialization value for $this->endDate
-     * @param double   $netPayCurrent   Initialization value for $this->netPayCurrent
-     * @param double   $netPayYTD       Initialization value for $this->netPayYTD
-     * @param double   $grossPayCurrent Initialization value for $this->grossPayCurrent
-     * @param double   $grossPayYTD     Initialization value for $this->grossPayYTD
-     * @param string   $payrollProvider Initialization value for $this->payrollProvider
-     * @param string   $matchType       Initialization value for $this->matchType
-     * @param Employer $employer        Initialization value for $this->employer
-     * @param Employee $employee        Initialization value for $this->employee
-     * @param array    $payStat         Initialization value for $this->payStat
-     * @param array    $deductions      Initialization value for $this->deductions
-     * @param array    $directDeposits  Initialization value for $this->directDeposits
-     * @param array    $institutions    Initialization value for $this->institutions
+     * @param string                     $payPeriod       Initialization value for $this->payPeriod
+     * @param bool                       $billable        Initialization value for $this->billable
+     * @param string                     $assetId         Initialization value for $this->assetId
+     * @param integer                    $payDate         Initialization value for $this->payDate
+     * @param integer                    $startDate       Initialization value for $this->startDate
+     * @param integer                    $endDate         Initialization value for $this->endDate
+     * @param double                     $netPayCurrent   Initialization value for $this->netPayCurrent
+     * @param double                     $netPayYTD       Initialization value for $this->netPayYTD
+     * @param double                     $grossPayCurrent Initialization value for $this->grossPayCurrent
+     * @param double                     $grossPayYTD     Initialization value for $this->grossPayYTD
+     * @param string                     $payrollProvider Initialization value for $this->payrollProvider
+     * @param string                     $matchType       Initialization value for $this->matchType
+     * @param Employer                   $employer        Initialization value for $this->employer
+     * @param Employee                   $employee        Initialization value for $this->employee
+     * @param array                      $payStat         Initialization value for $this->payStat
+     * @param array                      $directDeposits  Initialization value for $this->directDeposits
+     * @param PaystubMonthlyIncomeRecord $monthlyIncome   Initialization value for $this->monthlyIncome
+     * @param array                      $institutions    Initialization value for $this->institutions
+     * @param integer                    $errorCode       Initialization value for $this->errorCode
+     * @param string                     $errorMessage    Initialization value for $this->errorMessage
      */
     public function __construct()
     {
-        if (18 == func_num_args()) {
+        if (20 == func_num_args()) {
             $this->payPeriod       = func_get_arg(0);
             $this->billable        = func_get_arg(1);
             $this->assetId         = func_get_arg(2);
@@ -181,9 +196,11 @@ class VOIETxverifyPayStatement implements JsonSerializable
             $this->employer        = func_get_arg(12);
             $this->employee        = func_get_arg(13);
             $this->payStat         = func_get_arg(14);
-            $this->deductions      = func_get_arg(15);
-            $this->directDeposits  = func_get_arg(16);
+            $this->directDeposits  = func_get_arg(15);
+            $this->monthlyIncome   = func_get_arg(16);
             $this->institutions    = func_get_arg(17);
+            $this->errorCode       = func_get_arg(18);
+            $this->errorMessage    = func_get_arg(19);
         }
     }
 
@@ -219,9 +236,11 @@ class VOIETxverifyPayStatement implements JsonSerializable
         $json['employer']        = $this->employer;
         $json['employee']        = $this->employee;
         $json['payStat']         = $this->payStat;
-        $json['deductions']      = $this->deductions;
         $json['directDeposits']  = $this->directDeposits;
+        $json['monthlyIncome']   = $this->monthlyIncome;
         $json['institutions']    = $this->institutions;
+        $json['errorCode']       = $this->errorCode;
+        $json['errorMessage']    = $this->errorMessage;
 
         return array_merge($json, $this->additionalProperties);
     }

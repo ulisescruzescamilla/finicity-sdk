@@ -53,7 +53,7 @@ class PrequalificationReportRecord implements JsonSerializable
 
     /**
      * @todo Write general description for this property
-     * @var \FinicityAPILib\Models\Error1[]|null $errors public property
+     * @var \FinicityAPILib\Models\ErrorMessage[]|null $errors public property
      */
     public $errors;
 
@@ -65,16 +65,8 @@ class PrequalificationReportRecord implements JsonSerializable
     public $createdDate;
 
     /**
-     * The Report Listener URL to receive notifications (optional, must be URL-encoded).
-     * @required
-     * @var \FinicityAPILib\Models\Callback $callback public property
-     */
-    public $callback;
-
-    /**
      * @todo Write general description for this property
-     * @required
-     * @var \FinicityAPILib\Models\ReportConstraints $constraints public property
+     * @var \FinicityAPILib\Models\ReportConstraints|null $constraints public property
      */
     public $constraints;
 
@@ -134,14 +126,6 @@ class PrequalificationReportRecord implements JsonSerializable
     public $gseEnabled;
 
     /**
-     * A list of institution records, including information about the individual accounts used in this
-     * report
-     * @required
-     * @var \FinicityAPILib\Models\PrequalificationReportInstitution[] $institutions public property
-     */
-    public $institutions;
-
-    /**
      * Sum of Available Balance for all of the accounts included in the report
      * @required
      * @var double $consolidatedAvailableBalance public property
@@ -170,6 +154,21 @@ class PrequalificationReportRecord implements JsonSerializable
     public $consumerSsn;
 
     /**
+     * A list of institution records, including information about the individual accounts used in this
+     * report
+     * @required
+     * @var \FinicityAPILib\Models\PrequalificationReportInstitution[] $institutions public property
+     */
+    public $institutions;
+
+    /**
+     * @todo Write general description for this property
+     * @required
+     * @var \FinicityAPILib\Models\AssetSummary $assets public property
+     */
+    public $assets;
+
+    /**
      * All additional properties for this model
      * @var array $additionalProperties public property
      */
@@ -185,7 +184,6 @@ class PrequalificationReportRecord implements JsonSerializable
      * @param string            $status                       Initialization value for $this->status
      * @param array             $errors                       Initialization value for $this->errors
      * @param integer           $createdDate                  Initialization value for $this->createdDate
-     * @param Callback          $callback                     Initialization value for $this->callback
      * @param ReportConstraints $constraints                  Initialization value for $this->constraints
      * @param string            $source                       Initialization value for $this->source
      * @param string            $customerType                 Initialization value for $this->customerType
@@ -195,12 +193,13 @@ class PrequalificationReportRecord implements JsonSerializable
      * @param integer           $days                         Initialization value for $this->days
      * @param bool              $seasoned                     Initialization value for $this->seasoned
      * @param bool              $gseEnabled                   Initialization value for $this->gseEnabled
-     * @param array             $institutions                 Initialization value for $this->institutions
      * @param double            $consolidatedAvailableBalance Initialization value for $this-
      *                                                          >consolidatedAvailableBalance
      * @param string            $portfolioId                  Initialization value for $this->portfolioId
      * @param string            $consumerId                   Initialization value for $this->consumerId
      * @param string            $consumerSsn                  Initialization value for $this->consumerSsn
+     * @param array             $institutions                 Initialization value for $this->institutions
+     * @param AssetSummary      $assets                       Initialization value for $this->assets
      */
     public function __construct()
     {
@@ -213,21 +212,21 @@ class PrequalificationReportRecord implements JsonSerializable
             $this->status                       = func_get_arg(5);
             $this->errors                       = func_get_arg(6);
             $this->createdDate                  = func_get_arg(7);
-            $this->callback                     = func_get_arg(8);
-            $this->constraints                  = func_get_arg(9);
-            $this->source                       = func_get_arg(10);
-            $this->customerType                 = func_get_arg(11);
-            $this->title                        = func_get_arg(12);
-            $this->startDate                    = func_get_arg(13);
-            $this->endDate                      = func_get_arg(14);
-            $this->days                         = func_get_arg(15);
-            $this->seasoned                     = func_get_arg(16);
-            $this->gseEnabled                   = func_get_arg(17);
-            $this->institutions                 = func_get_arg(18);
-            $this->consolidatedAvailableBalance = func_get_arg(19);
-            $this->portfolioId                  = func_get_arg(20);
-            $this->consumerId                   = func_get_arg(21);
-            $this->consumerSsn                  = func_get_arg(22);
+            $this->constraints                  = func_get_arg(8);
+            $this->source                       = func_get_arg(9);
+            $this->customerType                 = func_get_arg(10);
+            $this->title                        = func_get_arg(11);
+            $this->startDate                    = func_get_arg(12);
+            $this->endDate                      = func_get_arg(13);
+            $this->days                         = func_get_arg(14);
+            $this->seasoned                     = func_get_arg(15);
+            $this->gseEnabled                   = func_get_arg(16);
+            $this->consolidatedAvailableBalance = func_get_arg(17);
+            $this->portfolioId                  = func_get_arg(18);
+            $this->consumerId                   = func_get_arg(19);
+            $this->consumerSsn                  = func_get_arg(20);
+            $this->institutions                 = func_get_arg(21);
+            $this->assets                       = func_get_arg(22);
         }
     }
 
@@ -256,7 +255,6 @@ class PrequalificationReportRecord implements JsonSerializable
         $json['status']                       = $this->status;
         $json['errors']                       = $this->errors;
         $json['createdDate']                  = $this->createdDate;
-        $json['callback']                     = $this->callback;
         $json['constraints']                  = $this->constraints;
         $json['source']                       = $this->source;
         $json['customerType']                 = $this->customerType;
@@ -266,11 +264,12 @@ class PrequalificationReportRecord implements JsonSerializable
         $json['days']                         = $this->days;
         $json['seasoned']                     = $this->seasoned;
         $json['gseEnabled']                   = $this->gseEnabled;
-        $json['institutions']                 = $this->institutions;
         $json['consolidatedAvailableBalance'] = $this->consolidatedAvailableBalance;
         $json['portfolioId']                  = $this->portfolioId;
         $json['consumerId']                   = $this->consumerId;
         $json['consumerSsn']                  = $this->consumerSsn;
+        $json['institutions']                 = $this->institutions;
+        $json['assets']                       = $this->assets;
 
         return array_merge($json, $this->additionalProperties);
     }

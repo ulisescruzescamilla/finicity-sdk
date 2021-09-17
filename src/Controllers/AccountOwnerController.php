@@ -38,9 +38,9 @@ class AccountOwnerController extends BaseController
     }
 
     /**
-     * Return the account owner’s name and address.
+     * Retrieve the names and addresses of the account owner from a financial institution.
      *
-     * This is a premium service. The billable event is a successful call to this service.
+     * **Note**: This is a premium service, billable per every successful API call.
      *
      * HTTP status of 200 means the account owner’s name and address were retrieved successfully.
      *
@@ -48,8 +48,7 @@ class AccountOwnerController extends BaseController
      * Account Manager or Systems Engineers to determine the best route to handle this HTTP status code.
      *
      * This service retrieves account data from the institution. This usually returns quickly, but in some
-     * scenarios may take a few minutes to complete. In the event of a timeout condition, please retry the
-     * call.
+     * scenarios may take a few minutes to complete. In the event of a timeout condition, retry the call.
      *
      * @param string  $accept     application/json, application/xml
      * @param integer $customerId Finicity’s ID for the customer

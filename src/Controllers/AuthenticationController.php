@@ -97,14 +97,19 @@ class AuthenticationController extends BaseController
     }
 
     /**
-     * Validate the partner’s credentials (Finicity-App-Key, Partner ID, and Partner Secret) and return a
-     * temporary access token. The token must be passed in the HTTP header Finicity-App-Token on all
-     * subsequent API requests.
+     * Partner ID and Partner Secret: Sends to the Partner Authentication service to obtain a token for
+     * accessing the APIs.
      *
-     * The token is valid for two hours. You can have multiple active tokens at the same time.
+     * •The token is valid for two hours and is required on all calls to the Finicity APIs
      *
-     * Five unsuccessful authentication attempts will cause the partner’s account to be locked. To unlock
-     * the account, send an email to support@finicity.com
+     * •As a best practice, use a single token for all calls. Assign a timestamp for each token, and then
+     * check the current timestamp before making any calls. If the token is greater than 90 minutes,
+     * generate a new one.
+     *
+     * Finicity-App-Key: Required on all calls to the Finicity APIs to identify your application.
+     *
+     * After five failed attempts to authenticate, your account is locked. Contact support@finicity.com to
+     * get help resetting your account.
      *
      * @param string                    $contentType  application/json
      * @param string                    $accept       application/json

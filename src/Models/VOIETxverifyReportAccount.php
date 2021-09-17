@@ -54,6 +54,13 @@ class VOIETxverifyReportAccount implements JsonSerializable
     public $type;
 
     /**
+     * The available balance for the account
+     * @required
+     * @var double $availableBalance public property
+     */
+    public $availableBalance;
+
+    /**
      * The status of the most recent aggregation attempt (see Handling Aggregation Status Codes)
      * @required
      * @var integer $aggregationStatusCode public property
@@ -61,18 +68,52 @@ class VOIETxverifyReportAccount implements JsonSerializable
     public $aggregationStatusCode;
 
     /**
-     * A list of income stream records
+     * The cleared balance of the account as-of balanceDate
      * @required
-     * @var \FinicityAPILib\Models\VOIETxverifyReportIncomeStream[] $incomeStreams public property
+     * @var double $balance public property
      */
-    public $incomeStreams;
+    public $balance;
 
     /**
-     * A list of miscellaneous deposits
+     * A timestamp showing when the balance was captured
      * @required
-     * @var \FinicityAPILib\Models\VOIETxverifyReportTransaction[] $miscDeposits public property
+     * @var integer $balanceDate public property
      */
-    public $miscDeposits;
+    public $balanceDate;
+
+    /**
+     * The average monthly balance of this account
+     * @required
+     * @var double $averageMonthlyBalance public property
+     */
+    public $averageMonthlyBalance;
+
+    /**
+     * An array of transactions belonging to the account
+     * @required
+     * @var array $transactions public property
+     */
+    public $transactions;
+
+    /**
+     * A details record for the account
+     * @required
+     * @var \FinicityAPILib\Models\AccountDetail $details public property
+     */
+    public $details;
+
+    /**
+     * The direct deposit income streams with a transaction matching to the pay statement.
+     * @var \FinicityAPILib\Models\VOIETxverifyReportIncomeStreamForAccountsInInstitutionsInPayStatements|null $incomeStream public property
+     */
+    public $incomeStream;
+
+    /**
+     * A list of all identified income stream records in the account.
+     * @required
+     * @var \FinicityAPILib\Models\VOIETxverifyReportIncomeStreamForAccountsInInstitutionsInPayStatements[] $incomeStreams public property
+     */
+    public $incomeStreams;
 
     /**
      * All additional properties for this model
@@ -82,28 +123,55 @@ class VOIETxverifyReportAccount implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param integer $id                    Initialization value for $this->id
-     * @param string  $number                Initialization value for $this->number
-     * @param string  $ownerName             Initialization value for $this->ownerName
-     * @param string  $ownerAddress          Initialization value for $this->ownerAddress
-     * @param string  $name                  Initialization value for $this->name
-     * @param string  $type                  Initialization value for $this->type
-     * @param integer $aggregationStatusCode Initialization value for $this->aggregationStatusCode
-     * @param array   $incomeStreams         Initialization value for $this->incomeStreams
-     * @param array   $miscDeposits          Initialization value for $this->miscDeposits
+     * @param integer                                                                $id                    Initialization value for $this-
+     *                                                                                                        >id
+     * @param string                                                                 $number                Initialization value for $this-
+     *                                                                                                        >number
+     * @param string                                                                 $ownerName             Initialization value for $this-
+     *                                                                                                        >ownerName
+     * @param string                                                                 $ownerAddress          Initialization value for $this-
+     *                                                                                                        >ownerAddress
+     * @param string                                                                 $name                  Initialization value for $this-
+     *                                                                                                        >name
+     * @param string                                                                 $type                  Initialization value for $this-
+     *                                                                                                        >type
+     * @param double                                                                 $availableBalance      Initialization value for $this-
+     *                                                                                                        >availableBalance
+     * @param integer                                                                $aggregationStatusCode Initialization value for $this-
+     *                                                                                                        >aggregationStatusCode
+     * @param double                                                                 $balance               Initialization value for $this-
+     *                                                                                                        >balance
+     * @param integer                                                                $balanceDate           Initialization value for $this-
+     *                                                                                                        >balanceDate
+     * @param double                                                                 $averageMonthlyBalance Initialization value for $this-
+     *                                                                                                        >averageMonthlyBalance
+     * @param array                                                                  $transactions          Initialization value for $this-
+     *                                                                                                        >transactions
+     * @param AccountDetail                                                          $details               Initialization value for $this-
+     *                                                                                                        >details
+     * @param VOIETxverifyReportIncomeStreamForAccountsInInstitutionsInPayStatements $incomeStream          Initialization value for $this-
+     *                                                                                                        >incomeStream
+     * @param array                                                                  $incomeStreams         Initialization value for $this-
+     *                                                                                                        >incomeStreams
      */
     public function __construct()
     {
-        if (9 == func_num_args()) {
+        if (15 == func_num_args()) {
             $this->id                    = func_get_arg(0);
             $this->number                = func_get_arg(1);
             $this->ownerName             = func_get_arg(2);
             $this->ownerAddress          = func_get_arg(3);
             $this->name                  = func_get_arg(4);
             $this->type                  = func_get_arg(5);
-            $this->aggregationStatusCode = func_get_arg(6);
-            $this->incomeStreams         = func_get_arg(7);
-            $this->miscDeposits          = func_get_arg(8);
+            $this->availableBalance      = func_get_arg(6);
+            $this->aggregationStatusCode = func_get_arg(7);
+            $this->balance               = func_get_arg(8);
+            $this->balanceDate           = func_get_arg(9);
+            $this->averageMonthlyBalance = func_get_arg(10);
+            $this->transactions          = func_get_arg(11);
+            $this->details               = func_get_arg(12);
+            $this->incomeStream          = func_get_arg(13);
+            $this->incomeStreams         = func_get_arg(14);
         }
     }
 
@@ -130,9 +198,15 @@ class VOIETxverifyReportAccount implements JsonSerializable
         $json['ownerAddress']          = $this->ownerAddress;
         $json['name']                  = $this->name;
         $json['type']                  = $this->type;
+        $json['availableBalance']      = $this->availableBalance;
         $json['aggregationStatusCode'] = $this->aggregationStatusCode;
+        $json['balance']               = $this->balance;
+        $json['balanceDate']           = $this->balanceDate;
+        $json['averageMonthlyBalance'] = $this->averageMonthlyBalance;
+        $json['transactions']          = $this->transactions;
+        $json['details']               = $this->details;
+        $json['incomeStream']          = $this->incomeStream;
         $json['incomeStreams']         = $this->incomeStreams;
-        $json['miscDeposits']          = $this->miscDeposits;
 
         return array_merge($json, $this->additionalProperties);
     }

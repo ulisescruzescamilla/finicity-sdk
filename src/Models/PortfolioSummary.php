@@ -19,7 +19,7 @@ class PortfolioSummary implements JsonSerializable
     /**
      * Information pertaining to the consumer
      * @required
-     * @var \FinicityAPILib\Models\Consumer $consumer public property
+     * @var \FinicityAPILib\Models\PortfolioConsumer $consumer public property
      */
     public $consumer;
 
@@ -38,9 +38,9 @@ class PortfolioSummary implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string   $portfolioId Initialization value for $this->portfolioId
-     * @param Consumer $consumer    Initialization value for $this->consumer
-     * @param array    $reports     Initialization value for $this->reports
+     * @param string            $portfolioId Initialization value for $this->portfolioId
+     * @param PortfolioConsumer $consumer    Initialization value for $this->consumer
+     * @param array             $reports     Initialization value for $this->reports
      */
     public function __construct()
     {

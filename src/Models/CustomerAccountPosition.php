@@ -22,22 +22,30 @@ class CustomerAccountPosition implements JsonSerializable
     public $description;
 
     /**
-     * Cusip number for the investment holding
-     * @var integer|null $cusipNo public property
+     * A nine-digit numeric or nine-character alphanumeric code that identifies a North American financial
+     * security (will be changed to SecurityIdType in the next API version, v2)
+     * @var string|null $cusipNo public property
      */
     public $cusipNo;
 
     /**
-     * The symbol of the investment holding
+     * Type of the security, attached Finicity's cusipNo field (will be changed to SecurityIdType in the
+     * next API version, v2)
+     * @var string|null $cusipNoType public property
+     */
+    public $cusipNoType;
+
+    /**
+     * The investment position's market/ticker symbol
      * @var string|null $symbol public property
      */
     public $symbol;
 
     /**
      * The quantity of investment holdings
-     * @var double|null $quantity public property
+     * @var double|null $units public property
      */
-    public $quantity;
+    public $units;
 
     /**
      * The current price of the investment holding
@@ -46,10 +54,10 @@ class CustomerAccountPosition implements JsonSerializable
     public $currentPrice;
 
     /**
-     * The fund name for the investment holding
-     * @var string|null $fundName public property
+     * The security name for the investment holding
+     * @var string|null $securityName public property
      */
-    public $fundName;
+    public $securityName;
 
     /**
      * The transaction type of the holding. Cash, Margin, POSSTOCK, Etc
@@ -58,28 +66,16 @@ class CustomerAccountPosition implements JsonSerializable
     public $transactionType;
 
     /**
-     * The market value of the holding
+     * Market value of an investment position at the time of retrieval
      * @var double|null $marketValue public property
      */
     public $marketValue;
 
     /**
-     * The cost basis of the holding
+     * The total cost of acquiring the ssecurity
      * @var double|null $costBasis public property
      */
     public $costBasis;
-
-    /**
-     * The # of units of the holding
-     * @var double|null $units public property
-     */
-    public $units;
-
-    /**
-     * The unit price of the holding
-     * @var double|null $unitPrice public property
-     */
-    public $unitPrice;
 
     /**
      * The status of the holding
@@ -100,6 +96,30 @@ class CustomerAccountPosition implements JsonSerializable
     public $invSecurityType;
 
     /**
+     * Type of mutual fund (e.g., open-ended)
+     * @var string|null $mfType public property
+     */
+    public $mfType;
+
+    /**
+     * Fund Type assigned by the FI (long or short)
+     * @var string|null $posType public property
+     */
+    public $posType;
+
+    /**
+     * Total Gain/Loss of the position, at the time of aggregation ($)
+     * @var double|null $totalGLDollar public property
+     */
+    public $totalGLDollar;
+
+    /**
+     * Total Gain/Loss of the position, at the time of aggregation (%)
+     * @var double|null $totalGLPercent public property
+     */
+    public $totalGLPercent;
+
+    /**
      * All additional properties for this model
      * @var array $additionalProperties public property
      */
@@ -109,38 +129,44 @@ class CustomerAccountPosition implements JsonSerializable
      * Constructor to set initial or default values of member properties
      * @param integer $id               Initialization value for $this->id
      * @param string  $description      Initialization value for $this->description
-     * @param integer $cusipNo          Initialization value for $this->cusipNo
+     * @param string  $cusipNo          Initialization value for $this->cusipNo
+     * @param string  $cusipNoType      Initialization value for $this->cusipNoType
      * @param string  $symbol           Initialization value for $this->symbol
-     * @param double  $quantity         Initialization value for $this->quantity
+     * @param double  $units            Initialization value for $this->units
      * @param double  $currentPrice     Initialization value for $this->currentPrice
-     * @param string  $fundName         Initialization value for $this->fundName
+     * @param string  $securityName     Initialization value for $this->securityName
      * @param string  $transactionType  Initialization value for $this->transactionType
      * @param double  $marketValue      Initialization value for $this->marketValue
      * @param double  $costBasis        Initialization value for $this->costBasis
-     * @param double  $units            Initialization value for $this->units
-     * @param double  $unitPrice        Initialization value for $this->unitPrice
      * @param string  $status           Initialization value for $this->status
      * @param integer $currentPriceDate Initialization value for $this->currentPriceDate
      * @param string  $invSecurityType  Initialization value for $this->invSecurityType
+     * @param string  $mfType           Initialization value for $this->mfType
+     * @param string  $posType          Initialization value for $this->posType
+     * @param double  $totalGLDollar    Initialization value for $this->totalGLDollar
+     * @param double  $totalGLPercent   Initialization value for $this->totalGLPercent
      */
     public function __construct()
     {
-        if (15 == func_num_args()) {
+        if (18 == func_num_args()) {
             $this->id               = func_get_arg(0);
             $this->description      = func_get_arg(1);
             $this->cusipNo          = func_get_arg(2);
-            $this->symbol           = func_get_arg(3);
-            $this->quantity         = func_get_arg(4);
-            $this->currentPrice     = func_get_arg(5);
-            $this->fundName         = func_get_arg(6);
-            $this->transactionType  = func_get_arg(7);
-            $this->marketValue      = func_get_arg(8);
-            $this->costBasis        = func_get_arg(9);
-            $this->units            = func_get_arg(10);
-            $this->unitPrice        = func_get_arg(11);
-            $this->status           = func_get_arg(12);
-            $this->currentPriceDate = func_get_arg(13);
-            $this->invSecurityType  = func_get_arg(14);
+            $this->cusipNoType      = func_get_arg(3);
+            $this->symbol           = func_get_arg(4);
+            $this->units            = func_get_arg(5);
+            $this->currentPrice     = func_get_arg(6);
+            $this->securityName     = func_get_arg(7);
+            $this->transactionType  = func_get_arg(8);
+            $this->marketValue      = func_get_arg(9);
+            $this->costBasis        = func_get_arg(10);
+            $this->status           = func_get_arg(11);
+            $this->currentPriceDate = func_get_arg(12);
+            $this->invSecurityType  = func_get_arg(13);
+            $this->mfType           = func_get_arg(14);
+            $this->posType          = func_get_arg(15);
+            $this->totalGLDollar    = func_get_arg(16);
+            $this->totalGLPercent   = func_get_arg(17);
         }
     }
 
@@ -164,18 +190,21 @@ class CustomerAccountPosition implements JsonSerializable
         $json['id']               = $this->id;
         $json['description']      = $this->description;
         $json['cusipNo']          = $this->cusipNo;
+        $json['cusipNoType']      = $this->cusipNoType;
         $json['symbol']           = $this->symbol;
-        $json['quantity']         = $this->quantity;
+        $json['units']            = $this->units;
         $json['currentPrice']     = $this->currentPrice;
-        $json['fundName']         = $this->fundName;
+        $json['securityName']     = $this->securityName;
         $json['transactionType']  = $this->transactionType;
         $json['marketValue']      = $this->marketValue;
         $json['costBasis']        = $this->costBasis;
-        $json['units']            = $this->units;
-        $json['unitPrice']        = $this->unitPrice;
         $json['status']           = $this->status;
         $json['currentPriceDate'] = $this->currentPriceDate;
         $json['invSecurityType']  = $this->invSecurityType;
+        $json['mfType']           = $this->mfType;
+        $json['posType']          = $this->posType;
+        $json['totalGLDollar']    = $this->totalGLDollar;
+        $json['totalGLPercent']   = $this->totalGLPercent;
 
         return array_merge($json, $this->additionalProperties);
     }

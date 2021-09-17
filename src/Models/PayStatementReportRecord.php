@@ -67,7 +67,7 @@ class PayStatementReportRecord implements JsonSerializable
 
     /**
      * @todo Write general description for this property
-     * @var \FinicityAPILib\Models\Error1[]|null $errors public property
+     * @var \FinicityAPILib\Models\ErrorMessage[]|null $errors public property
      */
     public $errors;
 
@@ -77,13 +77,6 @@ class PayStatementReportRecord implements JsonSerializable
      * @var integer $createdDate public property
      */
     public $createdDate;
-
-    /**
-     * The Report Listener URL to receive notifications (optional, must be URL-encoded).
-     * @required
-     * @var \FinicityAPILib\Models\Callback $callback public property
-     */
-    public $callback;
 
     /**
      * @todo Write general description for this property
@@ -134,6 +127,20 @@ class PayStatementReportRecord implements JsonSerializable
     public $portfolioId;
 
     /**
+     * @todo Write general description for this property
+     * @required
+     * @var bool $gseEnabled public property
+     */
+    public $gseEnabled;
+
+    /**
+     * @todo Write general description for this property
+     * @required
+     * @var string $reportStyle public property
+     */
+    public $reportStyle;
+
+    /**
      * Total number of billable pay statements included in the report
      * @required
      * @var integer $numberOfBillableAssets public property
@@ -173,7 +180,6 @@ class PayStatementReportRecord implements JsonSerializable
      * @param string                  $status                        Initialization value for $this->status
      * @param array                   $errors                        Initialization value for $this->errors
      * @param integer                 $createdDate                   Initialization value for $this->createdDate
-     * @param Callback                $callback                      Initialization value for $this->callback
      * @param PayStatementConstraints $constraints                   Initialization value for $this->constraints
      * @param string                  $source                        Initialization value for $this->source
      * @param string                  $customerType                  Initialization value for $this->customerType
@@ -181,6 +187,8 @@ class PayStatementReportRecord implements JsonSerializable
      * @param integer                 $startDate                     Initialization value for $this->startDate
      * @param integer                 $endDate                       Initialization value for $this->endDate
      * @param string                  $portfolioId                   Initialization value for $this->portfolioId
+     * @param bool                    $gseEnabled                    Initialization value for $this->gseEnabled
+     * @param string                  $reportStyle                   Initialization value for $this->reportStyle
      * @param integer                 $numberOfBillableAssets        Initialization value for $this-
      *                                                                 >numberOfBillableAssets
      * @param array                   $assetIds                      Initialization value for $this->assetIds
@@ -189,7 +197,7 @@ class PayStatementReportRecord implements JsonSerializable
      */
     public function __construct()
     {
-        if (21 == func_num_args()) {
+        if (22 == func_num_args()) {
             $this->id                            = func_get_arg(0);
             $this->customerId                    = func_get_arg(1);
             $this->consumerId                    = func_get_arg(2);
@@ -200,17 +208,18 @@ class PayStatementReportRecord implements JsonSerializable
             $this->status                        = func_get_arg(7);
             $this->errors                        = func_get_arg(8);
             $this->createdDate                   = func_get_arg(9);
-            $this->callback                      = func_get_arg(10);
-            $this->constraints                   = func_get_arg(11);
-            $this->source                        = func_get_arg(12);
-            $this->customerType                  = func_get_arg(13);
-            $this->title                         = func_get_arg(14);
-            $this->startDate                     = func_get_arg(15);
-            $this->endDate                       = func_get_arg(16);
-            $this->portfolioId                   = func_get_arg(17);
-            $this->numberOfBillableAssets        = func_get_arg(18);
-            $this->assetIds                      = func_get_arg(19);
-            $this->payStatement_txverify_DaoList = func_get_arg(20);
+            $this->constraints                   = func_get_arg(10);
+            $this->source                        = func_get_arg(11);
+            $this->customerType                  = func_get_arg(12);
+            $this->title                         = func_get_arg(13);
+            $this->startDate                     = func_get_arg(14);
+            $this->endDate                       = func_get_arg(15);
+            $this->portfolioId                   = func_get_arg(16);
+            $this->gseEnabled                    = func_get_arg(17);
+            $this->reportStyle                   = func_get_arg(18);
+            $this->numberOfBillableAssets        = func_get_arg(19);
+            $this->assetIds                      = func_get_arg(20);
+            $this->payStatement_txverify_DaoList = func_get_arg(21);
         }
     }
 
@@ -241,7 +250,6 @@ class PayStatementReportRecord implements JsonSerializable
         $json['status']                      = $this->status;
         $json['errors']                      = $this->errors;
         $json['createdDate']                 = $this->createdDate;
-        $json['callback']                    = $this->callback;
         $json['constraints']                 = $this->constraints;
         $json['source']                      = $this->source;
         $json['customerType']                = $this->customerType;
@@ -249,6 +257,8 @@ class PayStatementReportRecord implements JsonSerializable
         $json['startDate']                   = $this->startDate;
         $json['endDate']                     = $this->endDate;
         $json['portfolioId']                 = $this->portfolioId;
+        $json['gseEnabled']                  = $this->gseEnabled;
+        $json['reportStyle']                 = $this->reportStyle;
         $json['numberOfBillableAssets']      = $this->numberOfBillableAssets;
         $json['assetIds']                    = $this->assetIds;
         $json['payStatementTxVerifyDaoList'] = $this->payStatement_txverify_DaoList;

@@ -65,7 +65,7 @@ class AuditableReport implements JsonSerializable
 
     /**
      * @todo Write general description for this property
-     * @var \FinicityAPILib\Models\Error1[]|null $errors public property
+     * @var \FinicityAPILib\Models\ErrorMessage[]|null $errors public property
      */
     public $errors;
 
@@ -75,13 +75,6 @@ class AuditableReport implements JsonSerializable
      * @var integer $createdDate public property
      */
     public $createdDate;
-
-    /**
-     * The Report Listener URL to receive notifications (optional, must be URL-encoded).
-     * @required
-     * @var \FinicityAPILib\Models\Callback $callback public property
-     */
-    public $callback;
 
     /**
      * @todo Write general description for this property
@@ -126,21 +119,38 @@ class AuditableReport implements JsonSerializable
 
     /**
      * Number of days covered by the report
-     * @var integer|null $days public property
+     * @required
+     * @var integer $days public property
      */
     public $days;
 
     /**
      * This will display true if the report covers more than 180 days
-     * @var bool|null $seasoned public property
+     * @required
+     * @var bool $seasoned public property
      */
     public $seasoned;
 
     /**
      * @todo Write general description for this property
-     * @var bool|null $gseEnabled public property
+     * @required
+     * @var bool $gseEnabled public property
      */
     public $gseEnabled;
+
+    /**
+     * Finicity’s portfolio ID associated with the consumer on the report.
+     * @required
+     * @var string $portfolioId public property
+     */
+    public $portfolioId;
+
+    /**
+     * @todo Write general description for this property
+     * @required
+     * @var double $consolidatedAvailableBalance public property
+     */
+    public $consolidatedAvailableBalance;
 
     /**
      * A list of institution records, including information about the individual accounts used in this
@@ -149,18 +159,6 @@ class AuditableReport implements JsonSerializable
      * @var \FinicityAPILib\Models\ReportInstitution[] $institutions public property
      */
     public $institutions;
-
-    /**
-     * @todo Write general description for this property
-     * @var double|null $consolidatedAvailableBalance public property
-     */
-    public $consolidatedAvailableBalance;
-
-    /**
-     * Finicity’s portfolio ID associated with the consumer on the report.
-     * @var string|null $portfolioId public property
-     */
-    public $portfolioId;
 
     /**
      * All additional properties for this model
@@ -180,7 +178,6 @@ class AuditableReport implements JsonSerializable
      * @param string            $status                       Initialization value for $this->status
      * @param array             $errors                       Initialization value for $this->errors
      * @param integer           $createdDate                  Initialization value for $this->createdDate
-     * @param Callback          $callback                     Initialization value for $this->callback
      * @param ReportConstraints $constraints                  Initialization value for $this->constraints
      * @param string            $source                       Initialization value for $this->source
      * @param string            $customerType                 Initialization value for $this->customerType
@@ -190,14 +187,14 @@ class AuditableReport implements JsonSerializable
      * @param integer           $days                         Initialization value for $this->days
      * @param bool              $seasoned                     Initialization value for $this->seasoned
      * @param bool              $gseEnabled                   Initialization value for $this->gseEnabled
-     * @param array             $institutions                 Initialization value for $this->institutions
+     * @param string            $portfolioId                  Initialization value for $this->portfolioId
      * @param double            $consolidatedAvailableBalance Initialization value for $this-
      *                                                          >consolidatedAvailableBalance
-     * @param string            $portfolioId                  Initialization value for $this->portfolioId
+     * @param array             $institutions                 Initialization value for $this->institutions
      */
     public function __construct()
     {
-        if (23 == func_num_args()) {
+        if (22 == func_num_args()) {
             $this->id                           = func_get_arg(0);
             $this->customerId                   = func_get_arg(1);
             $this->consumerId                   = func_get_arg(2);
@@ -208,19 +205,18 @@ class AuditableReport implements JsonSerializable
             $this->status                       = func_get_arg(7);
             $this->errors                       = func_get_arg(8);
             $this->createdDate                  = func_get_arg(9);
-            $this->callback                     = func_get_arg(10);
-            $this->constraints                  = func_get_arg(11);
-            $this->source                       = func_get_arg(12);
-            $this->customerType                 = func_get_arg(13);
-            $this->title                        = func_get_arg(14);
-            $this->startDate                    = func_get_arg(15);
-            $this->endDate                      = func_get_arg(16);
-            $this->days                         = func_get_arg(17);
-            $this->seasoned                     = func_get_arg(18);
-            $this->gseEnabled                   = func_get_arg(19);
-            $this->institutions                 = func_get_arg(20);
-            $this->consolidatedAvailableBalance = func_get_arg(21);
-            $this->portfolioId                  = func_get_arg(22);
+            $this->constraints                  = func_get_arg(10);
+            $this->source                       = func_get_arg(11);
+            $this->customerType                 = func_get_arg(12);
+            $this->title                        = func_get_arg(13);
+            $this->startDate                    = func_get_arg(14);
+            $this->endDate                      = func_get_arg(15);
+            $this->days                         = func_get_arg(16);
+            $this->seasoned                     = func_get_arg(17);
+            $this->gseEnabled                   = func_get_arg(18);
+            $this->portfolioId                  = func_get_arg(19);
+            $this->consolidatedAvailableBalance = func_get_arg(20);
+            $this->institutions                 = func_get_arg(21);
         }
     }
 
@@ -251,7 +247,6 @@ class AuditableReport implements JsonSerializable
         $json['status']                       = $this->status;
         $json['errors']                       = $this->errors;
         $json['createdDate']                  = $this->createdDate;
-        $json['callback']                     = $this->callback;
         $json['constraints']                  = $this->constraints;
         $json['source']                       = $this->source;
         $json['customerType']                 = $this->customerType;
@@ -261,9 +256,9 @@ class AuditableReport implements JsonSerializable
         $json['days']                         = $this->days;
         $json['seasoned']                     = $this->seasoned;
         $json['gseEnabled']                   = $this->gseEnabled;
-        $json['institutions']                 = $this->institutions;
-        $json['consolidatedAvailableBalance'] = $this->consolidatedAvailableBalance;
         $json['portfolioId']                  = $this->portfolioId;
+        $json['consolidatedAvailableBalance'] = $this->consolidatedAvailableBalance;
+        $json['institutions']                 = $this->institutions;
 
         return array_merge($json, $this->additionalProperties);
     }

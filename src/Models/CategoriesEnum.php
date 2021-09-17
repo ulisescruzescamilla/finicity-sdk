@@ -3,7 +3,7 @@
 namespace FinicityAPILib\Models;
 
 /**
- * The enumeration of supported account types
+ * The different categories for a transaction
  */
 class CategoriesEnum
 {
@@ -390,6 +390,11 @@ class CategoriesEnum
     /**
      * TODO: Write general description for this element
      */
+    const LOW_BALANCE = "Low Balance";
+
+    /**
+     * TODO: Write general description for this element
+     */
     const MOBILE_PHONE = "Mobile Phone";
 
     /**
@@ -535,6 +540,11 @@ class CategoriesEnum
     /**
      * TODO: Write general description for this element
      */
+    const STREAMING_SERVICES = "Streaming Services";
+
+    /**
+     * TODO: Write general description for this element
+     */
     const STUDENT_LOAN = "Student Loan";
 
     /**
@@ -596,4 +606,9 @@ class CategoriesEnum
      * TODO: Write general description for this element
      */
     const VETERINARY = "Veterinary";
+
+    /**
+     * TODO: Write general description for this element
+     */
+    const INTERNET_BROADBAND_CHARGES = "Internet / Broadband Charges";
 }

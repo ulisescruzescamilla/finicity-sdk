@@ -12,7 +12,7 @@ class Customer implements JsonSerializable
     /**
      * Finicity’s ID for the customer
      * @required
-     * @var string $id public property
+     * @var integer $id public property
      */
     public $id;
 
@@ -59,12 +59,12 @@ class Customer implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string $id          Initialization value for $this->id
-     * @param string $username    Initialization value for $this->username
-     * @param string $firstName   Initialization value for $this->firstName
-     * @param string $lastName    Initialization value for $this->lastName
-     * @param string $type        Initialization value for $this->type
-     * @param string $createdDate Initialization value for $this->createdDate
+     * @param integer $id          Initialization value for $this->id
+     * @param string  $username    Initialization value for $this->username
+     * @param string  $firstName   Initialization value for $this->firstName
+     * @param string  $lastName    Initialization value for $this->lastName
+     * @param string  $type        Initialization value for $this->type
+     * @param string  $createdDate Initialization value for $this->createdDate
      */
     public function __construct()
     {

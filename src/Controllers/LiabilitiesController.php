@@ -38,7 +38,9 @@ class LiabilitiesController extends BaseController
     }
 
     /**
-     * This will return loan payment details of customer for account. Only applies to loan type accounts.
+     * This returns the loan payment details of the customer for a loan-type account.
+     *
+     * **Note**: This is a premium service, billable per every successful API call.
      *
      * @param string  $accept     application/json, application/xml
      * @param integer $customerId ID of the customer

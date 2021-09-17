@@ -81,7 +81,7 @@ class CustomerAccountDetail implements JsonSerializable
 
     /**
      * (Credit Card/Line Of Credit) and (Mortgage/Loan) The account’s current interest rate
-     * @var double|null $interestRate public property
+     * @var string|null $interestRate public property
      */
     public $interestRate;
 
@@ -208,7 +208,7 @@ class CustomerAccountDetail implements JsonSerializable
 
     /**
      * (Mortgage/Loan) Length of loan in months
-     * @var integer|null $termOfMl public property
+     * @var string|null $termOfMl public property
      */
     public $termOfMl;
 
@@ -471,6 +471,12 @@ class CustomerAccountDetail implements JsonSerializable
     public $loanPaymentType;
 
     /**
+     * (Mortgage/Loan) Type of repayment plan for the student loan
+     * @var string|null $repaymentPlan public property
+     */
+    public $repaymentPlan;
+
+    /**
      * (Mortgage/Loan) Number of payments remaining before loan is paid off
      * @var integer|null $paymentsRemaining public property
      */
@@ -621,7 +627,7 @@ class CustomerAccountDetail implements JsonSerializable
      * @param double  $interestYtdAmount          Initialization value for $this->interestYtdAmount
      * @param double  $interestPriorYtdAmount     Initialization value for $this->interestPriorYtdAmount
      * @param integer $maturityDate               Initialization value for $this->maturityDate
-     * @param double  $interestRate               Initialization value for $this->interestRate
+     * @param string  $interestRate               Initialization value for $this->interestRate
      * @param double  $creditAvailableAmount      Initialization value for $this->creditAvailableAmount
      * @param double  $creditMaxAmount            Initialization value for $this->creditMaxAmount
      * @param double  $cashAdvanceAvailableAmount Initialization value for $this->cashAdvanceAvailableAmount
@@ -642,7 +648,7 @@ class CustomerAccountDetail implements JsonSerializable
      * @param double  $lastPaymentAmount          Initialization value for $this->lastPaymentAmount
      * @param integer $lastPaymentDate            Initialization value for $this->lastPaymentDate
      * @param double  $statementCloseBalance      Initialization value for $this->statementCloseBalance
-     * @param integer $termOfMl                   Initialization value for $this->termOfMl
+     * @param string  $termOfMl                   Initialization value for $this->termOfMl
      * @param string  $mlHolderName               Initialization value for $this->mlHolderName
      * @param string  $description                Initialization value for $this->description
      * @param double  $lateFeeAmount              Initialization value for $this->lateFeeAmount
@@ -686,6 +692,7 @@ class CustomerAccountDetail implements JsonSerializable
      * @param double  $interestPaidLtd            Initialization value for $this->interestPaidLtd
      * @param string  $interestRateType           Initialization value for $this->interestRateType
      * @param string  $loanPaymentType            Initialization value for $this->loanPaymentType
+     * @param string  $repaymentPlan              Initialization value for $this->repaymentPlan
      * @param integer $paymentsRemaining          Initialization value for $this->paymentsRemaining
      * @param double  $interestMarginBalance      Initialization value for $this->interestMarginBalance
      * @param double  $shortBalance               Initialization value for $this->shortBalance
@@ -711,7 +718,7 @@ class CustomerAccountDetail implements JsonSerializable
      */
     public function __construct()
     {
-        if (98 == func_num_args()) {
+        if (99 == func_num_args()) {
             $this->postedDate                 = func_get_arg(0);
             $this->availableBalanceAmount     = func_get_arg(1);
             $this->openDate                   = func_get_arg(2);
@@ -788,28 +795,29 @@ class CustomerAccountDetail implements JsonSerializable
             $this->interestPaidLtd            = func_get_arg(73);
             $this->interestRateType           = func_get_arg(74);
             $this->loanPaymentType            = func_get_arg(75);
-            $this->paymentsRemaining          = func_get_arg(76);
-            $this->interestMarginBalance      = func_get_arg(77);
-            $this->shortBalance               = func_get_arg(78);
-            $this->availableCashBalance       = func_get_arg(79);
-            $this->maturityValueAmount        = func_get_arg(80);
-            $this->vestedBalance              = func_get_arg(81);
-            $this->empMatchAmount             = func_get_arg(82);
-            $this->empPretaxContribAmount     = func_get_arg(83);
-            $this->empPretaxContribAmountYtd  = func_get_arg(84);
-            $this->contribTotalYtd            = func_get_arg(85);
-            $this->cashBalanceAmount          = func_get_arg(86);
-            $this->preTaxAmount               = func_get_arg(87);
-            $this->afterTaxAmount             = func_get_arg(88);
-            $this->matchAmount                = func_get_arg(89);
-            $this->profitSharingAmount        = func_get_arg(90);
-            $this->rolloverAmount             = func_get_arg(91);
-            $this->otherVestAmount            = func_get_arg(92);
-            $this->otherNonvestAmount         = func_get_arg(93);
-            $this->currentLoanBalance         = func_get_arg(94);
-            $this->loanRate                   = func_get_arg(95);
-            $this->buyPower                   = func_get_arg(96);
-            $this->rolloverLtd                = func_get_arg(97);
+            $this->repaymentPlan              = func_get_arg(76);
+            $this->paymentsRemaining          = func_get_arg(77);
+            $this->interestMarginBalance      = func_get_arg(78);
+            $this->shortBalance               = func_get_arg(79);
+            $this->availableCashBalance       = func_get_arg(80);
+            $this->maturityValueAmount        = func_get_arg(81);
+            $this->vestedBalance              = func_get_arg(82);
+            $this->empMatchAmount             = func_get_arg(83);
+            $this->empPretaxContribAmount     = func_get_arg(84);
+            $this->empPretaxContribAmountYtd  = func_get_arg(85);
+            $this->contribTotalYtd            = func_get_arg(86);
+            $this->cashBalanceAmount          = func_get_arg(87);
+            $this->preTaxAmount               = func_get_arg(88);
+            $this->afterTaxAmount             = func_get_arg(89);
+            $this->matchAmount                = func_get_arg(90);
+            $this->profitSharingAmount        = func_get_arg(91);
+            $this->rolloverAmount             = func_get_arg(92);
+            $this->otherVestAmount            = func_get_arg(93);
+            $this->otherNonvestAmount         = func_get_arg(94);
+            $this->currentLoanBalance         = func_get_arg(95);
+            $this->loanRate                   = func_get_arg(96);
+            $this->buyPower                   = func_get_arg(97);
+            $this->rolloverLtd                = func_get_arg(98);
         }
     }
 
@@ -906,6 +914,7 @@ class CustomerAccountDetail implements JsonSerializable
         $json['interestPaidLtd']            = $this->interestPaidLtd;
         $json['interestRateType']           = $this->interestRateType;
         $json['loanPaymentType']            = $this->loanPaymentType;
+        $json['repaymentPlan']              = $this->repaymentPlan;
         $json['paymentsRemaining']          = $this->paymentsRemaining;
         $json['interestMarginBalance']      = $this->interestMarginBalance;
         $json['shortBalance']               = $this->shortBalance;

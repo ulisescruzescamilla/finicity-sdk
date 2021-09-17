@@ -110,6 +110,13 @@ class VOAWithIncomeReportAccount implements JsonSerializable
     public $details;
 
     /**
+     * A list of income stream records
+     * @required
+     * @var \FinicityAPILib\Models\VOAIReportIncomeStreamRecord[] $incomeStreams public property
+     */
+    public $incomeStreams;
+
+    /**
      * All additional properties for this model
      * @var array $additionalProperties public property
      */
@@ -131,10 +138,11 @@ class VOAWithIncomeReportAccount implements JsonSerializable
      * @param array         $transactions          Initialization value for $this->transactions
      * @param AssetSummary  $asset                 Initialization value for $this->asset
      * @param AccountDetail $details               Initialization value for $this->details
+     * @param array         $incomeStreams         Initialization value for $this->incomeStreams
      */
     public function __construct()
     {
-        if (14 == func_num_args()) {
+        if (15 == func_num_args()) {
             $this->id                    = func_get_arg(0);
             $this->number                = func_get_arg(1);
             $this->ownerName             = func_get_arg(2);
@@ -149,6 +157,7 @@ class VOAWithIncomeReportAccount implements JsonSerializable
             $this->transactions          = func_get_arg(11);
             $this->asset                 = func_get_arg(12);
             $this->details               = func_get_arg(13);
+            $this->incomeStreams         = func_get_arg(14);
         }
     }
 
@@ -183,6 +192,7 @@ class VOAWithIncomeReportAccount implements JsonSerializable
         $json['transactions']          = $this->transactions;
         $json['asset']                 = $this->asset;
         $json['details']               = $this->details;
+        $json['incomeStreams']         = $this->incomeStreams;
 
         return array_merge($json, $this->additionalProperties);
     }

@@ -22,8 +22,7 @@ class PayStatementConstraints implements JsonSerializable
      * want the custom field to display in the PDF reports. Set the shown variable to false to limit seeing
      * the variable to JSON, XML report but not in the PDF report. All custom fields will display in the
      * Reseller Billing endpoint.  This is optional.
-     * @required
-     * @var \FinicityAPILib\Models\ReportCustomField[] $reportCustomFields public property
+     * @var \FinicityAPILib\Models\ReportCustomField[]|null $reportCustomFields public property
      */
     public $reportCustomFields;
 

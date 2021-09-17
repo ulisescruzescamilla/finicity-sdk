@@ -61,4 +61,29 @@ class TypeEnum
      * TODO: Write general description for this element
      */
     const VOIEWITHSTATEMENT = "voieWithStatement";
+
+    /**
+     * TODO: Write general description for this element
+     */
+    const TRANSACTIONS = "transactions";
+
+    /**
+     * TODO: Write general description for this element
+     */
+    const STATEMENT = "statement";
+
+    /**
+     * TODO: Write general description for this element
+     */
+    const VOIEPAYROLL = "voiePayroll";
+
+    /**
+     * TODO: Write general description for this element
+     */
+    const VOETRANSACTIONS = "voeTransactions";
+
+    /**
+     * TODO: Write general description for this element
+     */
+    const VOEPAYROLL = "voePayroll";
 }

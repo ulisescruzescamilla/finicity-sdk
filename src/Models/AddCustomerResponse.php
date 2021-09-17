@@ -12,7 +12,7 @@ class AddCustomerResponse implements JsonSerializable
     /**
      * The ID Of The New Customer Record
      * @required
-     * @var string $id public property
+     * @var integer $id public property
      */
     public $id;
 
@@ -38,9 +38,9 @@ class AddCustomerResponse implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string $id          Initialization value for $this->id
-     * @param string $username    Initialization value for $this->username
-     * @param string $createdDate Initialization value for $this->createdDate
+     * @param integer $id          Initialization value for $this->id
+     * @param string  $username    Initialization value for $this->username
+     * @param string  $createdDate Initialization value for $this->createdDate
      */
     public function __construct()
     {

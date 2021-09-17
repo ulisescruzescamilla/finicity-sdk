@@ -26,13 +26,6 @@ class Categorization1 implements JsonSerializable
     /**
      * @todo Write general description for this property
      * @required
-     * @var string $bestRepresentation public property
-     */
-    public $bestRepresentation;
-
-    /**
-     * @todo Write general description for this property
-     * @required
      * @var string $country public property
      */
     public $country;
@@ -47,16 +40,14 @@ class Categorization1 implements JsonSerializable
      * Constructor to set initial or default values of member properties
      * @param string $normalizedPayeeName Initialization value for $this->normalizedPayeeName
      * @param string $category            Initialization value for $this->category
-     * @param string $bestRepresentation  Initialization value for $this->bestRepresentation
      * @param string $country             Initialization value for $this->country
      */
     public function __construct()
     {
-        if (4 == func_num_args()) {
+        if (3 == func_num_args()) {
             $this->normalizedPayeeName = func_get_arg(0);
             $this->category            = func_get_arg(1);
-            $this->bestRepresentation  = func_get_arg(2);
-            $this->country             = func_get_arg(3);
+            $this->country             = func_get_arg(2);
         }
     }
 
@@ -79,7 +70,6 @@ class Categorization1 implements JsonSerializable
         $json = array();
         $json['normalizedPayeeName'] = $this->normalizedPayeeName;
         $json['category']            = $this->category;
-        $json['bestRepresentation']  = $this->bestRepresentation;
         $json['country']             = $this->country;
 
         return array_merge($json, $this->additionalProperties);

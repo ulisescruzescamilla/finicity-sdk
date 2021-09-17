@@ -38,84 +38,6 @@ class TxpushController extends BaseController
     }
 
     /**
-     * Inject a transaction into the transaction list for a testing account. This allows an app to trigger
-     * TxPush notifications for the account in order to test the app’s TxPush Listener service. This causes
-     * the platform to send one transaction event and one account event (showing that the account balance
-     * has changed). This service is only supported for testing accounts (accounts on institution 101732).
-     *
-     * @param string                                    $contentType  application/json, application/xml
-     * @param string                                    $accept       application/json, application/xml
-     * @param integer                                   $customerId   The ID of the customer who owns the account
-     * @param integer                                   $accountId    The Finicity ID of the account whose events will
-     *                                                                be sent to the TxPUSH Listener
-     * @param Models\CreateTxpushTestTransactionRequest $body         TODO: type description here
-     * @return mixed response from the API call
-     * @throws APIException Thrown if API call fails
-     */
-    public function create_txpush_TestTransaction(
-        $contentType,
-        $accept,
-        $customerId,
-        $accountId,
-        $body
-    ) {
-        //check that all required arguments are provided
-        if (!isset($contentType, $accept, $customerId, $accountId, $body)) {
-            throw new \InvalidArgumentException("One or more required arguments were NULL.");
-        }
-
-
-        //prepare query string for API call
-        $_queryBuilder = 
-            '/aggregation/v1/customers/{customerId}/accounts/{accountId}/transactions';
-
-        //process optional query parameters
-        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'customerId'   => $customerId,
-            'accountId'    => $accountId,
-            ));
-
-        //validate and preprocess url
-        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
-
-        //prepare headers
-        $_headers = array (
-            'user-agent'    => BaseController::USER_AGENT,
-            'Finicity-App-Key' => Configuration::$finicityAppKey,
-            'Finicity-App-Token' => Configuration::$finicityAppToken,
-            'Content-Type'    => $contentType,
-            'Accept'          => $accept
-        );
-
-        //json encode body
-        $_bodyJson = Request\Body::Json($body);
-
-        //call on-before Http callback
-        $_httpRequest = new HttpRequest(HttpMethod::POST, $_headers, $_queryUrl);
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
-        }
-
-        //and invoke the API call request to fetch the response
-        $response = Request::post($_queryUrl, $_headers, $_bodyJson);
-
-        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
-        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
-
-        //call on-after Http callback
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
-        }
-
-        //handle errors defined at the API level
-        $this->validateResponse($_httpResponse, $_httpContext);
-
-        $mapper = $this->getJsonMapper();
-
-        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CreateTxpushTestTransactionResponse');
-    }
-
-    /**
      * Register a client app’s TxPUSH Listener to receive TxPUSH notifications related to the given account.
      *
      * Each call to this service will return two records, one with class account and one with class
@@ -199,6 +121,84 @@ class TxpushController extends BaseController
         $mapper = $this->getJsonMapper();
 
         return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\TxpushSubscriptions');
+    }
+
+    /**
+     * Inject a transaction into the transaction list for a testing account. This allows an app to trigger
+     * TxPush notifications for the account in order to test the app’s TxPush Listener service. This causes
+     * the platform to send one transaction event and one account event (showing that the account balance
+     * has changed). This service is only supported for testing accounts (accounts on institution 101732).
+     *
+     * @param string                                    $contentType  application/json, application/xml
+     * @param string                                    $accept       application/json, application/xml
+     * @param integer                                   $customerId   The ID of the customer who owns the account
+     * @param integer                                   $accountId    The Finicity ID of the account whose events will
+     *                                                                be sent to the TxPUSH Listener
+     * @param Models\CreateTxpushTestTransactionRequest $body         TODO: type description here
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function create_txpush_TestTransaction(
+        $contentType,
+        $accept,
+        $customerId,
+        $accountId,
+        $body
+    ) {
+        //check that all required arguments are provided
+        if (!isset($contentType, $accept, $customerId, $accountId, $body)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = 
+            '/aggregation/v1/customers/{customerId}/accounts/{accountId}/transactions';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'customerId'   => $customerId,
+            'accountId'    => $accountId,
+            ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Content-Type'    => $contentType,
+            'Accept'          => $accept
+        );
+
+        //json encode body
+        $_bodyJson = Request\Body::Json($body);
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::POST, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::post($_queryUrl, $_headers, $_bodyJson);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CreateTxpushTestTransactionResponse');
     }
 
     /**

@@ -11,81 +11,94 @@ class ReportIncomeStream implements JsonSerializable
 {
     /**
      * Finicity’s income stream ID
-     * @var string|null $id public property
+     * @required
+     * @var string $id public property
      */
     public $id;
 
     /**
      * A human-readable name based on the normalizedPayee name of the transactions for this income stream
-     * @var string|null $name public property
+     * @required
+     * @var string $name public property
      */
     public $name;
 
     /**
      * active or inactive
-     * @var string|null $status public property
+     * @required
+     * @var string $status public property
      */
     public $status;
 
     /**
      * @todo Write general description for this property
-     * @var string|null $estimateInclusion public property
+     * @required
+     * @var string $estimateInclusion public property
      */
     public $estimateInclusion;
 
     /**
      * Level of confidence that the deposit stream represents income (example: 85%)
-     * @var integer|null $confidence public property
+     * @required
+     * @var integer $confidence public property
      */
     public $confidence;
 
     /**
      * @todo Write general description for this property
-     * @var \FinicityAPILib\Models\CadenceDetails|null $cadence public property
+     * @required
+     * @var \FinicityAPILib\Models\CadenceDetails $cadence public property
      */
     public $cadence;
 
     /**
      * A list of net monthly records. One instance for each complete calendar month in the report
-     * @var \FinicityAPILib\Models\NetMonthly[]|null $netMonthly public property
+     * @required
+     * @var \FinicityAPILib\Models\NetMonthly[] $netMonthly public property
      */
     public $netMonthly;
 
     /**
      * Sum of all values in netMonthlyIncome over the previous 12 months
-     * @var double|null $netAnnual public property
+     * @required
+     * @var double $netAnnual public property
      */
     public $netAnnual;
 
     /**
      * Projected net income over the next 12 months, across all income streams, based on netAnnualIncome
-     * @var double|null $projectedNetAnnual public property
+     * @required
+     * @var double $projectedNetAnnual public property
      */
     public $projectedNetAnnual;
 
     /**
      * Before-tax gross annual income (estimated from netAnnual) across all income stream in the past 12
      * months
-     * @var double|null $estimatedGrossAnnual public property
+     * @required
+     * @var double $estimatedGrossAnnual public property
      */
     public $estimatedGrossAnnual;
 
     /**
      * Projected gross income over the next 12 months, across all active income streams, based on
      * projectedNetAnnual
-     * @var double|null $projectedGrossAnnual public property
+     * @required
+     * @var double $projectedGrossAnnual public property
      */
     public $projectedGrossAnnual;
 
     /**
      * Monthly average amount over the previous 24 months
-     * @var double|null $averageMonthlyIncomeNet public property
+     * @required
+     * @var double $averageMonthlyIncomeNet public property
      */
     public $averageMonthlyIncomeNet;
 
     /**
      * A list of transaction records
-     * @var \FinicityAPILib\Models\ReportTransaction[]|null $transactions public property
+     * @required
+     * @var \FinicityAPILib\Models\ReportTransaction[] $transactions public property
      */
     public $transactions;
 

@@ -18,11 +18,28 @@ class CustomerAccount implements JsonSerializable
     public $id;
 
     /**
-     * The account number from the institution (all digits except the last four are obfuscated)
+     * Use the `accountNumberDisplay` field. Starting July 1, 2021 the `number` field will sunset with
+     * limited support until April 1, 2022, at which time it will be deprecated (no longer available).
      * @required
      * @var string $number public property
      */
     public $number;
+
+    /**
+     * The account number from a financial institution in truncated format: <br> <br> <br> <br> * Last four
+     * digits - 1234 <br> * Last four digits with suffix - 1234-9 <br> * Full value for string accounts -
+     * john@gmail.com.  <br> **Note**: Account Type 402 (student loan) pass the Loan Group number -
+     * xxxx1234-Group A-Loan 1.
+     * @required
+     * @var string $accountNumberDisplay public property
+     */
+    public $accountNumberDisplay;
+
+    /**
+     * The last 4 digits of the ACH account number
+     * @var integer|null $realAccountNumberLast4 public property
+     */
+    public $realAccountNumberLast4;
 
     /**
      * The account name from the institution
@@ -117,6 +134,13 @@ class CustomerAccount implements JsonSerializable
     public $lastTransactionDate;
 
     /**
+     * The date of the oldest transaction in the transactions for the account.
+     * @required
+     * @var integer $oldestTransactionDate public property
+     */
+    public $oldestTransactionDate;
+
+    /**
      * The institution login ID (see Institution Logins)
      * @required
      * @var integer $institutionLoginId public property
@@ -152,6 +176,8 @@ class CustomerAccount implements JsonSerializable
      * Constructor to set initial or default values of member properties
      * @param integer               $id                     Initialization value for $this->id
      * @param string                $number                 Initialization value for $this->number
+     * @param string                $accountNumberDisplay   Initialization value for $this->accountNumberDisplay
+     * @param integer               $realAccountNumberLast4 Initialization value for $this->realAccountNumberLast4
      * @param string                $name                   Initialization value for $this->name
      * @param double                $balance                Initialization value for $this->balance
      * @param string                $type                   Initialization value for $this->type
@@ -165,6 +191,7 @@ class CustomerAccount implements JsonSerializable
      * @param integer               $createdDate            Initialization value for $this->createdDate
      * @param string                $currency               Initialization value for $this->currency
      * @param integer               $lastTransactionDate    Initialization value for $this->lastTransactionDate
+     * @param integer               $oldestTransactionDate  Initialization value for $this->oldestTransactionDate
      * @param integer               $institutionLoginId     Initialization value for $this->institutionLoginId
      * @param CustomerAccountDetail $detail                 Initialization value for $this->detail
      * @param array                 $position               Initialization value for $this->position
@@ -172,26 +199,29 @@ class CustomerAccount implements JsonSerializable
      */
     public function __construct()
     {
-        if (19 == func_num_args()) {
+        if (22 == func_num_args()) {
             $this->id                     = func_get_arg(0);
             $this->number                 = func_get_arg(1);
-            $this->name                   = func_get_arg(2);
-            $this->balance                = func_get_arg(3);
-            $this->type                   = func_get_arg(4);
-            $this->aggregationStatusCode  = func_get_arg(5);
-            $this->status                 = func_get_arg(6);
-            $this->customerId             = func_get_arg(7);
-            $this->institutionId          = func_get_arg(8);
-            $this->balanceDate            = func_get_arg(9);
-            $this->aggregationSuccessDate = func_get_arg(10);
-            $this->aggregationAttemptDate = func_get_arg(11);
-            $this->createdDate            = func_get_arg(12);
-            $this->currency               = func_get_arg(13);
-            $this->lastTransactionDate    = func_get_arg(14);
-            $this->institutionLoginId     = func_get_arg(15);
-            $this->detail                 = func_get_arg(16);
-            $this->position               = func_get_arg(17);
-            $this->displayPosition        = func_get_arg(18);
+            $this->accountNumberDisplay   = func_get_arg(2);
+            $this->realAccountNumberLast4 = func_get_arg(3);
+            $this->name                   = func_get_arg(4);
+            $this->balance                = func_get_arg(5);
+            $this->type                   = func_get_arg(6);
+            $this->aggregationStatusCode  = func_get_arg(7);
+            $this->status                 = func_get_arg(8);
+            $this->customerId             = func_get_arg(9);
+            $this->institutionId          = func_get_arg(10);
+            $this->balanceDate            = func_get_arg(11);
+            $this->aggregationSuccessDate = func_get_arg(12);
+            $this->aggregationAttemptDate = func_get_arg(13);
+            $this->createdDate            = func_get_arg(14);
+            $this->currency               = func_get_arg(15);
+            $this->lastTransactionDate    = func_get_arg(16);
+            $this->oldestTransactionDate  = func_get_arg(17);
+            $this->institutionLoginId     = func_get_arg(18);
+            $this->detail                 = func_get_arg(19);
+            $this->position               = func_get_arg(20);
+            $this->displayPosition        = func_get_arg(21);
         }
     }
 
@@ -214,6 +244,8 @@ class CustomerAccount implements JsonSerializable
         $json = array();
         $json['id']                     = $this->id;
         $json['number']                 = $this->number;
+        $json['accountNumberDisplay']   = $this->accountNumberDisplay;
+        $json['realAccountNumberLast4'] = $this->realAccountNumberLast4;
         $json['name']                   = $this->name;
         $json['balance']                = $this->balance;
         $json['type']                   = $this->type;
@@ -227,6 +259,7 @@ class CustomerAccount implements JsonSerializable
         $json['createdDate']            = $this->createdDate;
         $json['currency']               = $this->currency;
         $json['lastTransactionDate']    = $this->lastTransactionDate;
+        $json['oldestTransactionDate']  = $this->oldestTransactionDate;
         $json['institutionLoginId']     = $this->institutionLoginId;
         $json['detail']                 = $this->detail;
         $json['position']               = $this->position;

@@ -11,43 +11,37 @@ class InstitutionAddress implements JsonSerializable
 {
     /**
      * The city of the institution’s headquarters
-     * @required
-     * @var string $city public property
+     * @var string|null $city public property
      */
     public $city;
 
     /**
      * Two-letter code for the state of the institution’s headquarters
-     * @required
-     * @var string $state public property
+     * @var string|null $state public property
      */
     public $state;
 
     /**
      * The country of the institution’s headquarters
-     * @required
-     * @var string $country public property
+     * @var string|null $country public property
      */
     public $country;
 
     /**
      * The postal code of the institution’s headquarters
-     * @required
-     * @var string $postalCode public property
+     * @var string|null $postalCode public property
      */
     public $postalCode;
 
     /**
      * Address information for the institution’s headquarters
-     * @required
-     * @var string $addressLine1 public property
+     * @var string|null $addressLine1 public property
      */
     public $addressLine1;
 
     /**
      * Address information for the institution’s headquarters
-     * @required
-     * @var string $addressLine2 public property
+     * @var string|null $addressLine2 public property
      */
     public $addressLine2;
 

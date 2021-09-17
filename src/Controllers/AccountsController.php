@@ -38,6 +38,88 @@ class AccountsController extends BaseController
     }
 
     /**
+     * Get details for all accounts associated with the given institution login. All accounts returned are
+     * accessible by a single set of credentials on a single institution.
+     *
+     *
+     * **Important**: This information applies to Student loans (account type 402) for only the following
+     * FIs:
+     * * Nelnet (101749)
+     * * Edfinancial (13179)
+     * * Granite State (14551)
+     * * OSLA (100722)
+     *
+     * The FIs utilize Loan Groups to group one or more loans together in a student loan account.
+     *
+     * The Loan Group number is passed in the `accountNumberDisplay` field.
+     * The response format is account number; group number; loan number.
+     *
+     * Example: xxxx1234-Group A-Loan 1 (Where A is the name of the loan group.)
+     *
+     * @param string  $accept             application/json, application/xml
+     * @param integer $customerId         Finicity ID for the customer whose accounts are to be retrieved
+     * @param integer $institutionLoginId The institution login ID (from the account record)
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getCustomerAccountsByInstitutionLogin(
+        $accept,
+        $customerId,
+        $institutionLoginId
+    ) {
+        //check that all required arguments are provided
+        if (!isset($accept, $customerId, $institutionLoginId)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = 
+            '/aggregation/v1/customers/{customerId}/institutionLogins/{institutionLoginId}/accounts';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'customerId'         => $customerId,
+            'institutionLoginId' => $institutionLoginId,
+            ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'       => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'             => $accept
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CustomerAccounts');
+    }
+
+    /**
      * Remove the specified set of accounts by institution login id from the Finicity system.
      *
      * (Note that the request and response are the same for JSON and XML clients.)
@@ -100,37 +182,47 @@ class AccountsController extends BaseController
     }
 
     /**
-     * This service is to migrate accounts from legacy FI to new OAuth FI.
+     * Get details for the specified account.
      *
-     * A successful API response will return a list of accounts for the given institution login id with an
-     * http status code as 200.
+     * **Important**: This information applies to Student loans (account type 402) for only the following
+     * FIs:
+     * * Nelnet (101749)
+     * * Edfinancial (13179)
+     * * Granite State (14551)
+     * * OSLA (100722)
      *
-     * @param integer $customerId         Finicity’s ID of the customer for the institutionLoginId of accounts
-     * @param integer $institutionLoginId Finicity's institutionLoginId for the set of accounts to be migrated
-     * @param integer $newInstitutionId   New OAuth FI ID where accounts  will be migrated
+     * The FIs utilize Loan Groups to group one or more loans together in a student loan account.
+     *
+     * The Loan Group number is passed in the `accountNumberDisplay` field.
+     * The response format is account number; group number; loan number.
+     *
+     * Example: xxxx1234-Group A-Loan 1 (Where A is the name of the loan group.)
+     *
+     * @param string  $accept     application/json, application/xml
+     * @param integer $customerId The ID of the customer who owns the account
+     * @param integer $accountId  Finicity’s ID of the account to be retrieved
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
-    public function migrateInstitutionLoginAccounts(
+    public function getCustomerAccount(
+        $accept,
         $customerId,
-        $institutionLoginId,
-        $newInstitutionId
+        $accountId
     ) {
         //check that all required arguments are provided
-        if (!isset($customerId, $institutionLoginId, $newInstitutionId)) {
+        if (!isset($accept, $customerId, $accountId)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
         $_queryBuilder = 
-            '/aggregation/v1/customers/{customerId}/institutionLogins/{institutionLoginId}/institutions/{newInstitutionId}';
+            '/aggregation/v1/customers/{customerId}/accounts/{accountId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'customerId'         => $customerId,
-            'institutionLoginId' => $institutionLoginId,
-            'newInstitutionId'   => $newInstitutionId,
+            'customerId' => $customerId,
+            'accountId'  => $accountId,
             ));
 
         //validate and preprocess url
@@ -138,20 +230,105 @@ class AccountsController extends BaseController
 
         //prepare headers
         $_headers = array (
-            'user-agent'       => BaseController::USER_AGENT,
-            'Accept'           => 'application/json',
+            'user-agent'    => BaseController::USER_AGENT,
             'Finicity-App-Key' => Configuration::$finicityAppKey,
-            'Finicity-App-Token' => Configuration::$finicityAppToken
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept
         );
 
         //call on-before Http callback
-        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
         if ($this->getHttpCallBack() != null) {
             $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
         }
 
         //and invoke the API call request to fetch the response
-        $response = Request::put($_queryUrl, $_headers);
+        $response = Request::get($_queryUrl, $_headers);
+
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
+        }
+
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
+
+        $mapper = $this->getJsonMapper();
+
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CustomerAccount');
+    }
+
+    /**
+     * Get details for all accounts owned by the specified customer.
+     *
+     * **Important**: This information applies to Student loans (account type 402) for only the following
+     * FIs:
+     * * Nelnet (101749)
+     * * Edfinancial (13179)
+     * * Granite State (14551)
+     * * OSLA (100722)
+     *
+     * The FIs utilize Loan Groups to group one or more loans together in a student loan account.
+     *
+     * The Loan Group number is passed in the `accountNumberDisplay` field.
+     * The response format is account number; group number; loan number.
+     *
+     * Example: xxxx1234-Group A-Loan 1 (Where A is the name of the loan group.)
+     *
+     * @param string  $accept     application/json, application/xml
+     * @param integer $customerId The ID of the customer whose accounts are to be retrieved
+     * @param string  $status     (optional) append, ?status=pending, to return accounts in active and pending status.
+     *                            Pending accounts were discovered but not activated and will not have transactions or
+     *                            have balance updates
+     * @return mixed response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getCustomerAccounts(
+        $accept,
+        $customerId,
+        $status = null
+    ) {
+        //check that all required arguments are provided
+        if (!isset($accept, $customerId)) {
+            throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
+
+
+        //prepare query string for API call
+        $_queryBuilder = '/aggregation/v1/customers/{customerId}/accounts';
+
+        //process optional query parameters
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'customerId' => $customerId,
+            ));
+
+        //process optional query parameters
+        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
+            'status'     => $status,
+        ));
+
+        //validate and preprocess url
+        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
+
+        //prepare headers
+        $_headers = array (
+            'user-agent'    => BaseController::USER_AGENT,
+            'Finicity-App-Key' => Configuration::$finicityAppKey,
+            'Finicity-App-Token' => Configuration::$finicityAppToken,
+            'Accept'          => $accept
+        );
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
+        //and invoke the API call request to fetch the response
+        $response = Request::get($_queryUrl, $_headers);
 
         $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
         $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
@@ -255,139 +432,6 @@ class AccountsController extends BaseController
     }
 
     /**
-     * Get details for all accounts associated with the given institution login. All accounts returned are
-     * accessible by a single set of credentials on a single institution.
-     *
-     * @param string  $accept             application/json, application/xml
-     * @param integer $customerId         Finicity ID for the customer whose accounts are to be retrieved
-     * @param integer $institutionLoginId The institution login ID (from the account record)
-     * @return mixed response from the API call
-     * @throws APIException Thrown if API call fails
-     */
-    public function getCustomerAccountsByInstitutionLogin(
-        $accept,
-        $customerId,
-        $institutionLoginId
-    ) {
-        //check that all required arguments are provided
-        if (!isset($accept, $customerId, $institutionLoginId)) {
-            throw new \InvalidArgumentException("One or more required arguments were NULL.");
-        }
-
-
-        //prepare query string for API call
-        $_queryBuilder = 
-            '/aggregation/v1/customers/{customerId}/institutionLogins/{institutionLoginId}/accounts';
-
-        //process optional query parameters
-        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'customerId'         => $customerId,
-            'institutionLoginId' => $institutionLoginId,
-            ));
-
-        //validate and preprocess url
-        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
-
-        //prepare headers
-        $_headers = array (
-            'user-agent'       => BaseController::USER_AGENT,
-            'Finicity-App-Key' => Configuration::$finicityAppKey,
-            'Finicity-App-Token' => Configuration::$finicityAppToken,
-            'Accept'             => $accept
-        );
-
-        //call on-before Http callback
-        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
-        }
-
-        //and invoke the API call request to fetch the response
-        $response = Request::get($_queryUrl, $_headers);
-
-        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
-        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
-
-        //call on-after Http callback
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
-        }
-
-        //handle errors defined at the API level
-        $this->validateResponse($_httpResponse, $_httpContext);
-
-        $mapper = $this->getJsonMapper();
-
-        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CustomerAccounts');
-    }
-
-    /**
-     * Get details for the specified account.
-     *
-     * @param string  $accept     application/json, application/xml
-     * @param integer $customerId The ID of the customer who owns the account
-     * @param integer $accountId  Finicity’s ID of the account to be retrieved
-     * @return mixed response from the API call
-     * @throws APIException Thrown if API call fails
-     */
-    public function getCustomerAccount(
-        $accept,
-        $customerId,
-        $accountId
-    ) {
-        //check that all required arguments are provided
-        if (!isset($accept, $customerId, $accountId)) {
-            throw new \InvalidArgumentException("One or more required arguments were NULL.");
-        }
-
-
-        //prepare query string for API call
-        $_queryBuilder = 
-            '/aggregation/v1/customers/{customerId}/accounts/{accountId}';
-
-        //process optional query parameters
-        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'customerId' => $customerId,
-            'accountId'  => $accountId,
-            ));
-
-        //validate and preprocess url
-        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
-
-        //prepare headers
-        $_headers = array (
-            'user-agent'    => BaseController::USER_AGENT,
-            'Finicity-App-Key' => Configuration::$finicityAppKey,
-            'Finicity-App-Token' => Configuration::$finicityAppToken,
-            'Accept'          => $accept
-        );
-
-        //call on-before Http callback
-        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
-        }
-
-        //and invoke the API call request to fetch the response
-        $response = Request::get($_queryUrl, $_headers);
-
-        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
-        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
-
-        //call on-after Http callback
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
-        }
-
-        //handle errors defined at the API level
-        $this->validateResponse($_httpResponse, $_httpContext);
-
-        $mapper = $this->getJsonMapper();
-
-        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CustomerAccount');
-    }
-
-    /**
      * Remove the specified account from Finicity Aggregation.
      *
      *
@@ -449,78 +493,22 @@ class AccountsController extends BaseController
     }
 
     /**
-     * Get details for all accounts owned by the specified customer.
-     *
-     * @param string  $accept     application/json, application/xml
-     * @param integer $customerId The ID of the customer whose accounts are to be retrieved
-     * @param string  $status     (optional) append, ?status=pending, to return accounts in active and pending status.
-     *                            Pending accounts were discovered but not activated and will not have transactions or
-     *                            have balance updates
-     * @return mixed response from the API call
-     * @throws APIException Thrown if API call fails
-     */
-    public function getCustomerAccounts(
-        $accept,
-        $customerId,
-        $status = null
-    ) {
-        //check that all required arguments are provided
-        if (!isset($accept, $customerId)) {
-            throw new \InvalidArgumentException("One or more required arguments were NULL.");
-        }
-
-
-        //prepare query string for API call
-        $_queryBuilder = '/aggregation/v1/customers/{customerId}/accounts';
-
-        //process optional query parameters
-        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'customerId' => $customerId,
-            ));
-
-        //process optional query parameters
-        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'status'     => $status,
-        ));
-
-        //validate and preprocess url
-        $_queryUrl = APIHelper::cleanUrl(Configuration::getBaseUri() . $_queryBuilder);
-
-        //prepare headers
-        $_headers = array (
-            'user-agent'    => BaseController::USER_AGENT,
-            'Finicity-App-Key' => Configuration::$finicityAppKey,
-            'Finicity-App-Token' => Configuration::$finicityAppToken,
-            'Accept'          => $accept
-        );
-
-        //call on-before Http callback
-        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
-        }
-
-        //and invoke the API call request to fetch the response
-        $response = Request::get($_queryUrl, $_headers);
-
-        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
-        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
-
-        //call on-after Http callback
-        if ($this->getHttpCallBack() != null) {
-            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
-        }
-
-        //handle errors defined at the API level
-        $this->validateResponse($_httpResponse, $_httpContext);
-
-        $mapper = $this->getJsonMapper();
-
-        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\CustomerAccounts');
-    }
-
-    /**
      * Get details for all active accounts owned by the specified customer at the specified institution.
+     *
+     *
+     * **Important**: This information applies to Student loans (account type 402) for only the following
+     * FIs:
+     * * Nelnet (101749)
+     * * Edfinancial (13179)
+     * * Granite State (14551)
+     * * OSLA (100722)
+     *
+     * The FIs utilize Loan Groups to group one or more loans together in a student loan account.
+     *
+     * The Loan Group number is passed in the `accountNumberDisplay` field.
+     * The response format is account number; group number; loan number.
+     *
+     * Example: xxxx1234-Group A-Loan 1 (Where A is the name of the loan group.)
      *
      * @param string  $accept        application/json, application/xml
      * @param integer $customerId    The ID of the customer who owns the account

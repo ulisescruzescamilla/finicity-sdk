@@ -10,22 +10,12 @@ use JsonSerializable;
 class VOIETxverifyConstraints implements JsonSerializable
 {
     /**
-     * Specific accountIds to be included in the new report.
+     * Specific accountIds to be included in the report. If this is not passed then the report will default
+     * to using all supported accounts previously added for this customer.
      * @required
-     * @var array $accountIds public property
+     * @var string $accountIds public property
      */
     public $accountIds;
-
-    /**
-     * The fromDate parameter is an Epoch Timestamp (in seconds), such as “1494449017”.  Without this
-     * parameter, the report defaults to 6 months if available. Example: ?fromDate={fromDate} If included,
-     * the epoch timestamp should be 10 digits long and be within two years of the present day. Extending
-     * the epoch timestamp beyond 10 digits will default back to six months of data.  This query is
-     * optional
-     * @required
-     * @var integer $fromDate public property
-     */
-    public $fromDate;
 
     /**
      * @todo Write general description for this property
@@ -40,8 +30,7 @@ class VOIETxverifyConstraints implements JsonSerializable
      * want the custom field to display in the PDF reports. Set the shown variable to false to limit seeing
      * the variable to JSON, XML report but not in the PDF report. All custom fields will display in the
      * Reseller Billing endpoint.  This is optional.
-     * @required
-     * @var \FinicityAPILib\Models\ReportCustomField[] $reportCustomFields public property
+     * @var \FinicityAPILib\Models\ReportCustomField[]|null $reportCustomFields public property
      */
     public $reportCustomFields;
 
@@ -53,18 +42,16 @@ class VOIETxverifyConstraints implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param array                 $accountIds            Initialization value for $this->accountIds
-     * @param integer               $fromDate              Initialization value for $this->fromDate
+     * @param string                $accountIds            Initialization value for $this->accountIds
      * @param VOIEWithInterviewData $voieWithInterviewData Initialization value for $this->voieWithInterviewData
      * @param array                 $reportCustomFields    Initialization value for $this->reportCustomFields
      */
     public function __construct()
     {
-        if (4 == func_num_args()) {
+        if (3 == func_num_args()) {
             $this->accountIds            = func_get_arg(0);
-            $this->fromDate              = func_get_arg(1);
-            $this->voieWithInterviewData = func_get_arg(2);
-            $this->reportCustomFields    = func_get_arg(3);
+            $this->voieWithInterviewData = func_get_arg(1);
+            $this->reportCustomFields    = func_get_arg(2);
         }
     }
 
@@ -86,7 +73,6 @@ class VOIETxverifyConstraints implements JsonSerializable
     {
         $json = array();
         $json['accountIds']            = $this->accountIds;
-        $json['fromDate']              = $this->fromDate;
         $json['voieWithInterviewData'] = $this->voieWithInterviewData;
         $json['reportCustomFields']    = $this->reportCustomFields;
 

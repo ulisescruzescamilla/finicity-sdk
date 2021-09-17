@@ -81,8 +81,7 @@ class GenerateVOAReportResponse implements JsonSerializable
 
     /**
      * @todo Write general description for this property
-     * @required
-     * @var \FinicityAPILib\Models\ReportConstraints $constraints public property
+     * @var \FinicityAPILib\Models\ReportConstraints|null $constraints public property
      */
     public $constraints;
 
@@ -102,7 +101,7 @@ class GenerateVOAReportResponse implements JsonSerializable
 
     /**
      * @todo Write general description for this property
-     * @var \FinicityAPILib\Models\Error1[]|null $errors public property
+     * @var \FinicityAPILib\Models\ErrorMessage[]|null $errors public property
      */
     public $errors;
 

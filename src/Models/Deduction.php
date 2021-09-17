@@ -12,36 +12,31 @@ class Deduction implements JsonSerializable
     /**
      * The normalized category of the deductions in the format [type][number]. The number is the will be
      * the iterating number of the type’s occurrence starting at one.
-     * @required
-     * @var string $name public property
+     * @var string|null $name public property
      */
     public $name;
 
     /**
      * The deduction line’s deduction type description
-     * @required
-     * @var string $description public property
+     * @var string|null $description public property
      */
     public $description;
 
     /**
      * The amount for the deduction line deducted from employee’s pay for the specified pay period.
-     * @required
-     * @var double $amountCurrent public property
+     * @var double|null $amountCurrent public property
      */
     public $amountCurrent;
 
     /**
      * The amount for the deduction line being deducted from the employee’s pay for the current pay year.
-     * @required
-     * @var string $amountYTD public property
+     * @var double|null $amountYTD public property
      */
     public $amountYTD;
 
     /**
      * Categorization based on the deduction line’s description.
-     * @required
-     * @var string $type public property
+     * @var string|null $type public property
      */
     public $type;
 
@@ -56,7 +51,7 @@ class Deduction implements JsonSerializable
      * @param string $name          Initialization value for $this->name
      * @param string $description   Initialization value for $this->description
      * @param double $amountCurrent Initialization value for $this->amountCurrent
-     * @param string $amountYTD     Initialization value for $this->amountYTD
+     * @param double $amountYTD     Initialization value for $this->amountYTD
      * @param string $type          Initialization value for $this->type
      */
     public function __construct()

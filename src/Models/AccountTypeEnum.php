@@ -118,7 +118,12 @@ class AccountTypeEnum
     const LOAN = "loan";
 
     /**
-     * Type cannot be determined
+     * Student Loan Account
      */
-    const UNKNOWN = "unknown";
+    const STUDENTLOAN = "StudentLoan";
+
+    /**
+     * UNK Description
+     */
+    const UNKNOWN = "Unknown";
 }

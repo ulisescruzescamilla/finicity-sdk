@@ -17,14 +17,14 @@ class GetInstitutionsResponse implements JsonSerializable
     public $found;
 
     /**
-     * Displaying count
+     * Display the results count
      * @required
      * @var integer $displaying public property
      */
     public $displaying;
 
     /**
-     * Indicates if there are more institutions to display that match the parameters
+     * **True**: There are more institutions, matching the search parameters, that you can display.
      * @required
      * @var bool $moreAvailable public property
      */
@@ -38,7 +38,7 @@ class GetInstitutionsResponse implements JsonSerializable
     public $createdDate;
 
     /**
-     * Results
+     * An array of institutions
      * @required
      * @var \FinicityAPILib\Models\Institution[] $institutions public property
      */

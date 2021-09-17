@@ -3,27 +3,27 @@
 namespace FinicityAPILib\Models;
 
 /**
- * @todo Write general description for this enumeration
+ * Estimate Inclusion
  */
 class EstimateInclusionEnum
 {
     /**
-     * High level of confidence of income stream
+     * TODO: Write general description for this element
      */
     const HIGH = "HIGH";
 
     /**
-     * Moderate level of confidence of income stream
+     * TODO: Write general description for this element
      */
     const MODERATE = "MODERATE";
 
     /**
-     * Low level of confidence of income stream
+     * TODO: Write general description for this element
      */
     const LOW = "LOW";
 
     /**
-     * No level of confidence of income stream
+     * TODO: Write general description for this element
      */
     const NO = "NO";
 }

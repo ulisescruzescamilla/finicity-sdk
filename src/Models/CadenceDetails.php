@@ -23,7 +23,7 @@ class CadenceDetails implements JsonSerializable
 
     /**
      * Number of days between the recurring deposits
-     * @var double|null $days public property
+     * @var integer|null $days public property
      */
     public $days;
 
@@ -37,7 +37,7 @@ class CadenceDetails implements JsonSerializable
      * Constructor to set initial or default values of member properties
      * @param integer $startDate Initialization value for $this->startDate
      * @param integer $stopDate  Initialization value for $this->stopDate
-     * @param double  $days      Initialization value for $this->days
+     * @param integer $days      Initialization value for $this->days
      */
     public function __construct()
     {

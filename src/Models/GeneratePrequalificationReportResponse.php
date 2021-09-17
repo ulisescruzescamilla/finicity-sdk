@@ -66,9 +66,22 @@ class GeneratePrequalificationReportResponse implements JsonSerializable
     public $title;
 
     /**
-     * @todo Write general description for this property
+     * Finicity ID of the consumer
      * @required
-     * @var \FinicityAPILib\Models\ReportConstraints $constraints public property
+     * @var string $consumerId public property
+     */
+    public $consumerId;
+
+    /**
+     * Last 4 digits of the report consumer’s Social Security number
+     * @required
+     * @var string $consumerSsn public property
+     */
+    public $consumerSsn;
+
+    /**
+     * @todo Write general description for this property
+     * @var \FinicityAPILib\Models\ReportConstraints|null $constraints public property
      */
     public $constraints;
 
@@ -88,7 +101,7 @@ class GeneratePrequalificationReportResponse implements JsonSerializable
 
     /**
      * @todo Write general description for this property
-     * @var \FinicityAPILib\Models\Error1[]|null $errors public property
+     * @var \FinicityAPILib\Models\ErrorMessage[]|null $errors public property
      */
     public $errors;
 
@@ -114,6 +127,8 @@ class GeneratePrequalificationReportResponse implements JsonSerializable
      * @param string            $requesterName Initialization value for $this->requesterName
      * @param integer           $createdDate   Initialization value for $this->createdDate
      * @param string            $title         Initialization value for $this->title
+     * @param string            $consumerId    Initialization value for $this->consumerId
+     * @param string            $consumerSsn   Initialization value for $this->consumerSsn
      * @param ReportConstraints $constraints   Initialization value for $this->constraints
      * @param string            $type          Initialization value for $this->type
      * @param string            $status        Initialization value for $this->status
@@ -122,7 +137,7 @@ class GeneratePrequalificationReportResponse implements JsonSerializable
      */
     public function __construct()
     {
-        if (13 == func_num_args()) {
+        if (15 == func_num_args()) {
             $this->id            = func_get_arg(0);
             $this->portfolioId   = func_get_arg(1);
             $this->customerType  = func_get_arg(2);
@@ -131,11 +146,13 @@ class GeneratePrequalificationReportResponse implements JsonSerializable
             $this->requesterName = func_get_arg(5);
             $this->createdDate   = func_get_arg(6);
             $this->title         = func_get_arg(7);
-            $this->constraints   = func_get_arg(8);
-            $this->type          = func_get_arg(9);
-            $this->status        = func_get_arg(10);
-            $this->errors        = func_get_arg(11);
-            $this->source        = func_get_arg(12);
+            $this->consumerId    = func_get_arg(8);
+            $this->consumerSsn   = func_get_arg(9);
+            $this->constraints   = func_get_arg(10);
+            $this->type          = func_get_arg(11);
+            $this->status        = func_get_arg(12);
+            $this->errors        = func_get_arg(13);
+            $this->source        = func_get_arg(14);
         }
     }
 
@@ -164,6 +181,8 @@ class GeneratePrequalificationReportResponse implements JsonSerializable
         $json['requesterName'] = $this->requesterName;
         $json['createdDate']   = $this->createdDate;
         $json['title']         = $this->title;
+        $json['consumerId']    = $this->consumerId;
+        $json['consumerSsn']   = $this->consumerSsn;
         $json['constraints']   = $this->constraints;
         $json['type']          = $this->type;
         $json['status']        = $this->status;

@@ -11,45 +11,9 @@ class Employer implements JsonSerializable
 {
     /**
      * The name of the employer
-     * @required
-     * @var string $name public property
+     * @var string|null $name public property
      */
     public $name;
-
-    /**
-     * The first address line of the employer
-     * @required
-     * @var string $address1 public property
-     */
-    public $address1;
-
-    /**
-     * The second address line of the employer
-     * @required
-     * @var string $address2 public property
-     */
-    public $address2;
-
-    /**
-     * The employer’s city
-     * @required
-     * @var string $city public property
-     */
-    public $city;
-
-    /**
-     * The employer’s state
-     * @required
-     * @var string $state public property
-     */
-    public $state;
-
-    /**
-     * The employer’s zip
-     * @required
-     * @var string $zip public property
-     */
-    public $zip;
 
     /**
      * All additional properties for this model
@@ -59,22 +23,12 @@ class Employer implements JsonSerializable
 
     /**
      * Constructor to set initial or default values of member properties
-     * @param string $name     Initialization value for $this->name
-     * @param string $address1 Initialization value for $this->address1
-     * @param string $address2 Initialization value for $this->address2
-     * @param string $city     Initialization value for $this->city
-     * @param string $state    Initialization value for $this->state
-     * @param string $zip      Initialization value for $this->zip
+     * @param string $name Initialization value for $this->name
      */
     public function __construct()
     {
-        if (6 == func_num_args()) {
-            $this->name     = func_get_arg(0);
-            $this->address1 = func_get_arg(1);
-            $this->address2 = func_get_arg(2);
-            $this->city     = func_get_arg(3);
-            $this->state    = func_get_arg(4);
-            $this->zip      = func_get_arg(5);
+        if (1 == func_num_args()) {
+            $this->name = func_get_arg(0);
         }
     }
 
@@ -95,12 +49,7 @@ class Employer implements JsonSerializable
     public function jsonSerialize()
     {
         $json = array();
-        $json['name']     = $this->name;
-        $json['address1'] = $this->address1;
-        $json['address2'] = $this->address2;
-        $json['city']     = $this->city;
-        $json['state']    = $this->state;
-        $json['zip']      = $this->zip;
+        $json['name'] = $this->name;
 
         return array_merge($json, $this->additionalProperties);
     }

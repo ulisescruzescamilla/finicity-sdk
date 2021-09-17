@@ -11,23 +11,20 @@ class ReportCustomField implements JsonSerializable
 {
     /**
      * The name of the custom field
-     * @required
-     * @var string $label public property
+     * @var string|null $label public property
      */
     public $label;
 
     /**
      * The value of the custom field
-     * @required
-     * @var string $value public property
+     * @var string|null $value public property
      */
     public $value;
 
     /**
      * The shown variable designates whether the custom field will display on the PDF report. When shown is
      * true, the custom field will show on the PDF.
-     * @required
-     * @var bool $shown public property
+     * @var bool|null $shown public property
      */
     public $shown;
 

@@ -26,56 +26,65 @@ class ReportAccount implements JsonSerializable
     /**
      * The name(s) of the account owner(s). This field is optional. If no owner information is available,
      * this field will not appear in the report.
-     * @var string|null $ownerName public property
+     * @required
+     * @var string $ownerName public property
      */
     public $ownerName;
 
     /**
      * The mailing address of the account owner(s). This field is optional. If no owner information is
      * available, this field will not appear in the report.
-     * @var string|null $ownerAddress public property
+     * @required
+     * @var string $ownerAddress public property
      */
     public $ownerAddress;
 
     /**
      * The account name from the institution
-     * @var string|null $name public property
+     * @required
+     * @var string $name public property
      */
     public $name;
 
     /**
      * One of the values from Account Types
-     * @var string|null $type public property
+     * @required
+     * @var string $type public property
      */
     public $type;
 
     /**
      * The available balance for the account
-     * @var double|null $availableBalance public property
+     * @required
+     * @var double $availableBalance public property
      */
     public $availableBalance;
 
     /**
      * The status of the most recent aggregation attempt (see Handling Aggregation Status Codes)
-     * @var integer|null $aggregationStatusCode public property
+     * @required
+     * @var integer $aggregationStatusCode public property
      */
     public $aggregationStatusCode;
 
     /**
      * The cleared balance of the account as-of balanceDate
-     * @var double|null $balance public property
+     * @required
+     * @var double $balance public property
      */
     public $balance;
 
     /**
      * A timestamp showing when the balance was captured (see Handling Dates and Times)
-     * @var integer|null $balanceDate public property
+     * @required
+     * @var integer $balanceDate public property
      */
     public $balanceDate;
 
     /**
      * The average monthly balance of this account
-     * @var double|null $averageMonthlyBalance public property
+     * @required
+     * @var double $averageMonthlyBalance public property
      */
     public $averageMonthlyBalance;
 
@@ -88,25 +97,29 @@ class ReportAccount implements JsonSerializable
 
     /**
      * An asset record for the account
-     * @var \FinicityAPILib\Models\AssetSummary|null $asset public property
+     * @required
+     * @var \FinicityAPILib\Models\AssetSummary $asset public property
      */
     public $asset;
 
     /**
      * A details record for the account
-     * @var \FinicityAPILib\Models\AccountDetail|null $details public property
+     * @required
+     * @var \FinicityAPILib\Models\AccountDetail $details public property
      */
     public $details;
 
     /**
      * Best matched income stream record
-     * @var \FinicityAPILib\Models\ReportIncomeStream|null $incomeStream public property
+     * @required
+     * @var \FinicityAPILib\Models\ReportIncomeStream $incomeStream public property
      */
     public $incomeStream;
 
     /**
      * A list of income stream records
-     * @var \FinicityAPILib\Models\ReportIncomeStream[]|null $incomeStreams public property
+     * @required
+     * @var \FinicityAPILib\Models\ReportIncomeStream[] $incomeStreams public property
      */
     public $incomeStreams;
 

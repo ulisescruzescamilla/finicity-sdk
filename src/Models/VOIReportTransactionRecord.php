@@ -51,13 +51,6 @@ class VOIReportTransactionRecord implements JsonSerializable
     public $memo;
 
     /**
-     * A normalized payee, derived from the transaction's description and memo fields.
-     * @required
-     * @var string $normalizedPayee public property
-     */
-    public $normalizedPayee;
-
-    /**
      * The unique identifier given by the FI for each transaction.
      * @required
      * @var string $institutionTransactionId public property
@@ -72,14 +65,6 @@ class VOIReportTransactionRecord implements JsonSerializable
     public $category;
 
     /**
-     * Combines the description and memo data together, removes any duplicated information from description
-     * to memo, and removes any numbers or special characters
-     * @required
-     * @var string $bestRepresentation public property
-     */
-    public $bestRepresentation;
-
-    /**
      * All additional properties for this model
      * @var array $additionalProperties public property
      */
@@ -92,23 +77,19 @@ class VOIReportTransactionRecord implements JsonSerializable
      * @param integer $postedDate               Initialization value for $this->postedDate
      * @param string  $description              Initialization value for $this->description
      * @param string  $memo                     Initialization value for $this->memo
-     * @param string  $normalizedPayee          Initialization value for $this->normalizedPayee
      * @param string  $institutionTransactionId Initialization value for $this->institutionTransactionId
      * @param string  $category                 Initialization value for $this->category
-     * @param string  $bestRepresentation       Initialization value for $this->bestRepresentation
      */
     public function __construct()
     {
-        if (9 == func_num_args()) {
+        if (7 == func_num_args()) {
             $this->id                       = func_get_arg(0);
             $this->amount                   = func_get_arg(1);
             $this->postedDate               = func_get_arg(2);
             $this->description              = func_get_arg(3);
             $this->memo                     = func_get_arg(4);
-            $this->normalizedPayee          = func_get_arg(5);
-            $this->institutionTransactionId = func_get_arg(6);
-            $this->category                 = func_get_arg(7);
-            $this->bestRepresentation       = func_get_arg(8);
+            $this->institutionTransactionId = func_get_arg(5);
+            $this->category                 = func_get_arg(6);
         }
     }
 
@@ -134,10 +115,8 @@ class VOIReportTransactionRecord implements JsonSerializable
         $json['postedDate']               = $this->postedDate;
         $json['description']              = $this->description;
         $json['memo']                     = $this->memo;
-        $json['normalizedPayee']          = $this->normalizedPayee;
         $json['institutionTransactionId'] = $this->institutionTransactionId;
         $json['category']                 = $this->category;
-        $json['bestRepresentation']       = $this->bestRepresentation;
 
         return array_merge($json, $this->additionalProperties);
     }

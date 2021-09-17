@@ -33,7 +33,7 @@ class VOIETxverifyReportInstitution implements JsonSerializable
     /**
      * An array of accounts
      * @required
-     * @var \FinicityAPILib\Models\VOIETxverifyReportAccount[] $accounts public property
+     * @var \FinicityAPILib\Models\VOIETxverifyReportAccountForInstitutions[] $accounts public property
      */
     public $accounts;
 

@@ -38,41 +38,42 @@ class GetPortfoliosController extends BaseController
     }
 
     /**
-     * Returns a portfolio of most recently generated report for each report type for a specified consumer.
+     * Returns a portfolio of most recently generated report for each report type for a specified customer.
      * If there are multiple reports that were generated for a report type (VOA, VOI, etc), only the most
      * recently generated report for the type will be returned.
      *
-     * HTTP 404 status means that there is no data for the consumer or portfolio. HTTP 200 (OK) status
+     * HTTP 404 status means that there is no data for the customer or portfolio. HTTP 200 (OK) status
      * means that the call was successful.
      *
-     * @param string $consumerId   Finicity report consumer ID (max length 32 characters)
-     * @param string $portfolioId  Finicity portfolio ID (Max 17 characters) with the portfolio version number. Using
-     *                             the portfolio number without a version number will return the most recently
-     *                             generated reports for the consumer.
-     * @param string $accept       Replace 'json' with 'xml' if preferred
-     * @param string $contentType  Replace 'json' with 'xml' if preferred
+     *
+     * @param integer $customerId   Finicity ID of the customer
+     * @param string  $portfolioId  Finicity portfolio ID (Max 17 characters) with the portfolio version number. Using
+     *                              the portfolio number without a version number will return the most recently
+     *                              generated reports for the consumer.
+     * @param string  $accept       Replace 'json' with 'xml' if preferred
+     * @param string  $contentType  Replace 'json' with 'xml' if preferred
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
-    public function getPortfolioByConsumer(
-        $consumerId,
+    public function getPortfolioByCustomer(
+        $customerId,
         $portfolioId,
         $accept,
         $contentType
     ) {
         //check that all required arguments are provided
-        if (!isset($consumerId, $portfolioId, $accept, $contentType)) {
+        if (!isset($customerId, $portfolioId, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
         $_queryBuilder = 
-            '/decisioning/v1/consumers/{consumerId}/portfolios/{portfolioId}';
+            '/decisioning/v1/customers/{customerId}/portfolios/{portfolioId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'consumerId'   => $consumerId,
+            'customerId'   => $customerId,
             'portfolioId'  => $portfolioId,
             ));
 
@@ -115,46 +116,45 @@ class GetPortfoliosController extends BaseController
 
         $mapper = $this->getJsonMapper();
 
-        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\PortfolioSummary');
+        return $mapper->mapClass($response->body, 'FinicityAPILib\\Models\\PortfolioSummaryByCustomer');
     }
 
     /**
-     * Returns a portfolio of most recently generated report for each report type for a specified customer.
+     * Returns a portfolio of most recently generated report for each report type for a specified consumer.
      * If there are multiple reports that were generated for a report type (VOA, VOI, etc), only the most
      * recently generated report for the type will be returned.
      *
-     * HTTP 404 status means that there is no data for the customer or portfolio. HTTP 200 (OK) status
+     * HTTP 404 status means that there is no data for the consumer or portfolio. HTTP 200 (OK) status
      * means that the call was successful.
      *
-     *
-     * @param integer $customerId   Finicity ID of the customer
-     * @param string  $portfolioId  Finicity portfolio ID (Max 17 characters) with the portfolio version number. Using
-     *                              the portfolio number without a version number will return the most recently
-     *                              generated reports for the consumer.
-     * @param string  $accept       Replace 'json' with 'xml' if preferred
-     * @param string  $contentType  Replace 'json' with 'xml' if preferred
+     * @param string $consumerId   Finicity report consumer ID (max length 32 characters)
+     * @param string $portfolioId  Finicity portfolio ID (Max 17 characters) with the portfolio version number. Using
+     *                             the portfolio number without a version number will return the most recently
+     *                             generated reports for the consumer.
+     * @param string $accept       Replace 'json' with 'xml' if preferred
+     * @param string $contentType  Replace 'json' with 'xml' if preferred
      * @return mixed response from the API call
      * @throws APIException Thrown if API call fails
      */
-    public function getPortfolioByCustomer(
-        $customerId,
+    public function getPortfolioByConsumer(
+        $consumerId,
         $portfolioId,
         $accept,
         $contentType
     ) {
         //check that all required arguments are provided
-        if (!isset($customerId, $portfolioId, $accept, $contentType)) {
+        if (!isset($consumerId, $portfolioId, $accept, $contentType)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
         }
 
 
         //prepare query string for API call
         $_queryBuilder = 
-            '/decisioning/v1/customers/{customerId}/portfolios/{portfolioId}';
+            '/decisioning/v1/consumers/{consumerId}/portfolios/{portfolioId}';
 
         //process optional query parameters
         $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'customerId'   => $customerId,
+            'consumerId'   => $consumerId,
             'portfolioId'  => $portfolioId,
             ));
 

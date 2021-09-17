@@ -63,7 +63,7 @@ class VOIReportAccountRecord implements JsonSerializable
     /**
      * A list of income stream records
      * @required
-     * @var \FinicityAPILib\Models\VOIReportIncomeStreamRecord[] $incomeStreams public property
+     * @var \FinicityAPILib\Models\ReportIncomeStreamRecord[] $incomeStreams public property
      */
     public $incomeStreams;
 

@@ -39,6 +39,6 @@ For using this SDK do the following:
 
     ```PHP
     $client = new FinicityAPIClient();
-    $controller = $client->getConnect();
+    $controller = $client->getCustomer();
     ```
 
